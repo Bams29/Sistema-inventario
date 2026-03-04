@@ -1,0 +1,333 @@
+body {
+    background-color: #ebc322;
+    display: flex;
+    margin: 0;
+    height: 100vh;
+    font-family: 'Poppins';font-size: 22px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.Barra-Navegacion {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 500px;
+    height: 100vh;
+    background: #775c00;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 40px;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.05);
+}
+
+.Inventario-btn,
+.Recibos-btn,
+.Avisos-btn {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 470px;
+    height: 100px;
+    margin: 5px 0;
+    background: #775c00;
+    border: 2px solid #775c00;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+    gap: 90px; 
+}
+
+.Barra-Navegacion button:hover {
+    background: #9d7800;
+    border-color: #8c6b00;
+}
+
+.Zona-Tarjetas {
+    margin-left: 500px;
+    padding: 40px 30px;
+    height: 100vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: calc(100vw - 500px);
+    box-sizing: border-box;
+}
+
+
+.usuarios-table {
+    background-color: #faebd7;
+    border: 2px solid #775c00;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 100%;
+}
+
+.usuarios-header {
+    display: grid;
+    grid-template-columns: 100px 1fr 150px 150px;
+    gap: 0;
+    background: #d4a574;
+    font-weight: bold;
+    border-bottom: 2px solid #775c00;
+}
+
+.usuarios-header > div {
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid #775c00;
+}
+
+.usuarios-header > div:last-child {
+    border-right: none;
+}
+
+.usuarios-rows {
+    display: flex;
+    flex-direction: column;
+}
+
+.usuario-row {
+    display: grid;
+    grid-template-columns: 100px 1fr 150px 150px;
+    gap: 0;
+    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.usuario-row > div {
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid #ddd;
+}
+
+.usuario-row > div:last-child {
+    border-right: none;
+}
+
+.usuario-row:hover {
+    background: #fdf8f0;
+}
+
+.usuario-row.selected {
+    background: #9d7800;
+    color: #fff;
+}
+
+.usuario-row.selected .Uss-pfp {
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+}
+
+.Uss-pfp {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+}
+
+.col-nombre .row-password {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    text-align: center;
+    background: #fff;
+}
+
+.col-img {
+    font-weight: 600;
+    text-align: left;
+    padding-left: 20px;
+}
+
+
+
+
+
+.Zona-Superior {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+    position: sticky;
+    top: 0;
+    background: #ebc322;
+    z-index: 2;
+    padding-bottom: 12px;
+}
+
+.Botones-Accion {
+    display: flex;
+    gap: 8px;
+}
+
+.Barra-Busqueda {
+    flex: 1;
+    padding: 10px 16px;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid #775c00;
+    outline: none;
+}
+
+.Accion-btn {
+    padding: 10px 24px;
+    background: #775c00;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.Accion-btn:hover {
+    background: #9d7800;
+}
+
+.Nav-Icon {
+    width: 62px;
+    height: 62px;
+    margin-left: 30px; 
+    flex-shrink: 0; 
+}
+
+.Logo-Ingreso {
+    position: absolute;
+    left: 20px;
+    bottom: 60px;
+    z-index: 10;
+}
+
+.Logo-Link {
+    position: relative;
+    display: inline-block;
+    text-decoration: none;
+}
+
+.Logo-Imagen {
+    width: 58px;
+    height: 58px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: box-shadow 0.2s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+}
+
+.Logo-Link:hover .Logo-Imagen {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+}
+
+.Logo-Tooltip {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    left: 60px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #fffbe6;
+    color: #775c00;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 1rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+    white-space: nowrap;
+    transition: opacity 0.2s;
+}
+
+.Logo-Link:hover .Logo-Tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+@media screen and (min-height: 1200px) {
+    .Logo-Imagen {
+        width: 90px;
+        height: 90px;
+    }
+    .Inventario-btn,
+    .Recibos-btn,
+    .Avisos-btn {
+        width: 500px;
+        height: 100px;
+        font-size: 1.6rem;
+        gap: 80px;
+    }
+
+    .Inventario-btn img,
+    .Recibos-btn img, .Avisos-btn img {
+        width: 80px;
+        height: 80px;
+
+    }
+
+}
+
+.card-agregar {
+    border: none;
+    border-radius: 8px;
+    padding: 20px;
+    background: #fffbe6;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    max-width: 400px;
+    width: 100%;
+}
+
+.form-ingreso {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.nombre-int {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-nombre,
+.input-cantidad,
+.input-estado,
+.input-acceso {
+    padding: 10px;
+    border: 1px solid #775c00;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.btn-agregar,
+.btn-cancelar {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-agregar {
+    background: #775c00;
+    color: #fff;
+}
+
+.btn-agregar:hover {
+    background: #9d7800;
+}
+
+.btn-cancelar {
+    background: #ccc;
+    color: #000;
+}
+
+.btn-cancelar:hover {
+    background: #aaa;
+}

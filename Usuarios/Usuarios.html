@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuarios</title>
+    <link rel="stylesheet" href="../Usuarios/Usuarios-style.css">
+</head>
+<body>
+    <div class="Barra-Navegacion">
+        <div class="Logo-Ingreso">
+            <a href="../ingreso.html" class="Logo-Link">
+                <img src="../Images/klipartz.com.png" alt="Ir a ingreso" class="Logo-Imagen">
+                <span class="Logo-Tooltip">Ir a ingreso</span>
+            </a>
+        </div>
+        <a href="../Inventario/Inventario.html">
+            <button class="Inventario-btn">
+                <img src="../Images/klipartz.com (1).png" alt="Inventario" class="Nav-Icon">
+                Inventario
+            </button>
+        </a>
+        <a href="../Recibos/Recibos.html">
+            <button class="Recibos-btn" href="Recibos.html">
+                <img src="../Images/Recibo.png" alt="Recibos" class="Nav-Icon">
+                Recibos
+            </button>
+        </a>
+        <a href="../Avisos/Avisos.html">
+            <button class="Avisos-btn">
+                <img src="../Images/Advertencia.png" alt="Avisos" class="Nav-Icon">
+                Avisos
+            </button>
+        </a>
+            <a href="../Usuarios/Usuarios.html">
+            <button class="Inventario-btn">
+                <img src="../Images/klipartz.com.png" alt="Inventario" class="Nav-Icon">
+                Usuarios
+            </button>
+        </a>
+    </div>
+    <div class="Zona-Tarjetas">
+        <div class="Zona-Superior">
+            <div class="Botones-Accion">
+                <button class="Accion-btn" id="btn-agregar">Agregar</button>
+                <button class="Accion-btn" id="btn-eliminar">Eliminar</button>
+                <button class="Accion-btn" id="btn-editar">Editar</button>
+            </div>
+            <input type="text" class="Barra-Busqueda" placeholder="Buscar usuario...">
+        </div>
+    <div class="usuarios-table">
+        <div class="usuarios-header">
+            <div class="col-img">Nombre</div>
+            <div class="col-nombre">Contraseña</div>
+            <div class="col-estado">Estado</div>
+            <div class="col-acceso">Nivel de Acceso</div>
+        </div>
+        <div class="usuarios-rows" id="usuarios-grid">
+            <div class="usuario-row" data-user-id="u1">
+                <div class="col-img">Juanjo</div>
+                <div class="col-nombre">1445</div>
+                <div class="col-estado">Activo</div>
+                <div class="col-acceso">Empleado</div>
+            </div>
+            <div class="usuario-row" data-user-id="u2">
+                <div class="col-img">pepillo</div>
+                <div class="col-nombre">4322</div>
+                <div class="col-estado">Inactivo</div>
+                <div class="col-acceso">Empleado</div>
+            </div>
+            <div class="usuario-row" data-user-id="u3">
+                <div class="col-img">Juan</div>
+                <div class="col-nombre">6543</div>
+                <div class="col-estado">Inactivo</div>
+                <div class="col-acceso">Administrador</div>
+            </div>
+            <div class="usuario-row" data-user-id="u4">
+                <div class="col-img">Memo</div>
+                <div class="col-nombre">114455</div>
+                <div class="col-estado">Activo</div>
+                <div class="col-acceso">Administrador</div>
+            </div>
+        </div>
+    </div>
+
+    <dialog class="card-agregar" id="modal">
+        <form class="form-ingreso">
+            <div class="nombre-int">
+                <input type="text" placeholder="Nombre" class="input-nombre">
+            </div>
+            <div class="nombre-int">
+                <input type="password" placeholder="Contraseña" class="input-password">
+            </div>
+            <div class="nombre-int">
+                <select class="input-estado">
+                    <option value="">Seleccionar Estado</option>
+                    <option value="Activo">Activo</option>
+                    <option value="Inactivo">Inactivo</option>
+                </select>
+            </div>
+            <div class="nombre-int">
+                <select class="input-acceso">
+                    <option value="">Seleccionar Nivel de Acceso</option>
+                    <option value="Empleado">Empleado</option>
+                    <option value="Administrador">Administrador</option>
+                </select>
+            </div>
+            <button type="button" class="btn-agregar" id="modal-add">Agregar</button>
+            <button type="button" id="btnCancelar" class="btn-cancelar">cancelar</button>
+        </form>
+    </dialog>
+
+
+
+    
+    <script src="Usuarios.js"></script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recibos</title>
+    <link rel="stylesheet" href="Recibos-style.css">
+</head>
+<body>
+    <div class="Barra-Navegacion">
+        <div class="Logo-Ingreso">
+            <a href="../ingreso.html" class="Logo-Link">
+                <img src="../Images/klipartz.com.png" alt="Ir a ingreso" class="Logo-Imagen">
+                <span class="Logo-Tooltip">Ir a ingreso</span>
+            </a>
+        </div>
+        <a href="../Inventario/Inventario.html">
+            <button class="Inventario-btn">
+                <img src="../Images/klipartz.com (1).png" alt="Inventario" class="Nav-Icon">
+                Inventario
+            </button>
+        </a>
+        <a href="../Recibos/Recibos.html">
+            <button class="Recibos-btn" href="Recibos.html">
+                <img src="../Images/Recibo.png" alt="Recibos" class="Nav-Icon">
+                Recibos
+            </button>
+        </a>
+        <a href="../Avisos/Avisos.html">
+            <button class="Avisos-btn">
+                <img src="../Images/Advertencia.png" alt="Avisos" class="Nav-Icon">
+                Avisos
+            </button>
+        </a>
+                </a>
+            <a href="../Usuarios/Usuarios.html">
+            <button class="Inventario-btn">
+                <img src="../Images/klipartz.com.png" alt="Inventario" class="Nav-Icon">
+                Usuarios
+            </button>
+        </a>
+    </div>
+    <div class="Zona-Tarjetas">
+        <div class="Zona-Superior">
+            <div class="Botones-Accion">
+                <button class="Accion-btn" id="btn-agregar">Agregar</button>
+                <button class="Accion-btn" id="btn-eliminar">Eliminar</button>
+                <button class="Accion-btn" id="btn-editar">Editar</button>
+            </div>
+            <input type="text" class="Barra-Busqueda" placeholder="Buscar recibo...">
+        </div>
+        <div class="Tarjetas-Grid">
+            <div class="Tarjeta-Recibo">
+                <div class="Tarjeta-Contenido">
+                    <img src="../Images/Recibo.png" alt="Imagen Recibo" class="Tarjeta-Imagen">
+                    <div class="Tarjeta-Datos">
+                        <h3>Valor: $150.000</h3>
+                        <p>Fecha: 13/09/2025</p>
+                        <p>Insumos: sosa caustica, Esencia para jabones</p>
+                        <p>Cantidad: 10</p>
+                        <p>Empleado: Juan Pérez</p>
+                    </div>
+                </div>
+            </div>
+            <div class="Tarjeta-Recibo">
+                <div class="Tarjeta-Contenido">
+                    <img src="../Images/Recibo.png" alt="Imagen Recibo" class="Tarjeta-Imagen">
+                    <div class="Tarjeta-Datos">
+                        <h3>Valor: $80.000</h3>
+                        <p>Fecha: 12/09/2025</p>
+                        <p>Insumos: Alcohol al 90</p>
+                        <p>Cantidad: 5</p>
+                        <p>Empleado: pepito Gómez</p>
+                    </div>
+                </div>
+            </div>
+            <div class="Tarjeta-Recibo">
+                <div class="Tarjeta-Contenido">
+                    <img src="../Images/Recibo.png" alt="Imagen Recibo" class="Tarjeta-Imagen">
+                    <div class="Tarjeta-Datos">
+                        <h3>Valor: $120.000</h3>
+                        <p>Fecha: 12/09/2025</p>
+                        <p>Insumos: Escencia, Azufre</p>
+                        <p>Cantidad: 5</p>
+                        <p>Empleado: pepito Gómez</p>
+                    </div>
+                </div>
+            </div>
+            <!-- REcordar que por aqui es para agregar mas -->
+        </div>
+    </div>
+
+        <!--aca el modal del boton agregar-->
+        <dialog class="card-agregar" id="modal">
+            <form class="form-ingreso">
+                <div class="nombre-int">
+                        <input type="text" placeholder="Valor" class="input-valor">
+                </div>
+                <div class="nombre-int">
+                        <input type="text" placeholder="Fecha" class="input-fecha">
+                </div>
+                <div class="nombre-int">
+                        <input type="text" placeholder="Insumos comprados" class="input-insumos">
+                </div>
+                <div class="nombre-int">
+                        <input type="text" placeholder="Cantidades" class="input-cantidades">
+                </div>
+                <div class="nombre-int">
+                        <input type="text" placeholder="Empleados" class="input-empleados">
+                </div>
+                    <button type="button" class="btn-agregar" id="modal-add">Agregar</button>
+                    <button type="button" id="btnCancelar" class="btn-cancelar">cancelar</button>
+            </form>
+        </dialog>
+
+    <script src="Recibos.js"></script>
+</body>
+</html>

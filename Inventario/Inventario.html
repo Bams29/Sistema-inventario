@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventario</title>
+    <link rel="stylesheet" href="Inventario-style.css">
+</head>
+<body>
+    <div class="Barra-Navegacion">
+        <div class="Logo-Ingreso">
+            <a href="../ingreso.html" class="Logo-Link">
+                <img src="../Images/klipartz.com.png" alt="Ir a ingreso" class="Logo-Imagen">
+                <span class="Logo-Tooltip">Ir a ingreso</span>
+            </a>
+        </div>
+        <a href="../Inventario/Inventario.html">
+            <button class="Inventario-btn">
+                <img src="../Images/klipartz.com (1).png" alt="Inventario" class="Nav-Icon">
+                Inventario
+            </button>
+        </a>
+        <a href="../Recibos/Recibos.html">
+            <button class="Recibos-btn" href="Recibos.html">
+                <img src="../Images/Recibo.png" alt="Recibos" class="Nav-Icon">
+                Recibos
+            </button>
+        </a>
+        <a href="../Avisos/Avisos.html">
+            <button class="Avisos-btn">
+                <img src="../Images/Advertencia.png" alt="Avisos" class="Nav-Icon">
+                Avisos
+            </button>
+        </a>
+                </a>
+            <a href="../Usuarios/Usuarios.html">
+            <button class="Inventario-btn">
+                <img src="../Images/klipartz.com.png" alt="Inventario" class="Nav-Icon">
+                Usuarios
+            </button>
+        </a>
+    </div>
+    <div class="Zona-Tarjetas">
+        <div class="Zona-Superior">
+            <div class="Botones-Accion">
+                <button class="Accion-btn" id="btn-agregar">Agregar</button>
+                <button class="Accion-btn" id="btn-eliminar">Eliminar</button>
+                <button class="Accion-btn" id="btn-editar">Editar</button>
+            </div>
+            <input type="text" class="Barra-Busqueda" placeholder="Buscar insumo...">
+        </div>
+        <div class="Tarjetas-Grid">
+            <div class="Tarjeta-Insumo">
+                <div class="Tarjeta-Contenido">
+                    <img src="../Images/klipartz.com (1).png" alt="Imagen Insumo" class="Tarjeta-Imagen">
+                    <div class="Tarjeta-Datos">
+                        <h3>Nombre: Insumo 1</h3>
+                        <p>ID: 001</p>
+                        <p>Cantidad: 15/15</p>
+                    </div>
+                </div>
+            </div>
+            <div class="Tarjeta-Insumo">
+                <div class="Tarjeta-Contenido">
+                    <img src="../Images/klipartz.com (1).png" alt="Imagen Insumo 2" class="Tarjeta-Imagen">
+                    <div class="Tarjeta-Datos">
+                        <h3>Nombre: Insumo 2</h3>
+                        <p>ID: 002</p>
+                        <p>Cantidad: 8/12</p>
+                    </div>
+                </div>
+            </div>
+            <div class="Tarjeta-Insumo">
+                <div class="Tarjeta-Contenido">
+                    <img src="../Images/klipartz.com (1).png" alt="Imagen Insumo 3" class="Tarjeta-Imagen">
+                    <div class="Tarjeta-Datos">
+                        <h3>Nombre: Insumo 3</h3>
+                        <p>ID: 003</p>
+                        <p>Cantidad: 22/30</p>
+                    </div>
+                </div>
+            </div>
+            <div class="Tarjeta-Insumo">
+                <div class="Tarjeta-Contenido">
+                    <img src="../Images/klipartz.com (1).png" alt="Imagen Insumo 3" class="Tarjeta-Imagen">
+                    <div class="Tarjeta-Datos">
+                        <h3>Nombre: Insumo 4</h3>
+                        <p>ID: 003</p>
+                        <p>Cantidad: 20/20</p>
+                    </div>
+                </div>
+            </div>
+            <div class="Tarjeta-Insumo">
+                <div class="Tarjeta-Contenido">
+                    <img src="../Images/klipartz.com (1).png" alt="Imagen Insumo 3" class="Tarjeta-Imagen">
+                    <div class="Tarjeta-Datos">
+                        <h3>Nombre: Insumo 5</h3>
+                        <p>ID: 003</p>
+                        <p>Cantidad: 12/40</p>
+                    </div>
+                </div>
+            <!--recordatorio Por si necesito añadir mas -->
+        </div>
+    </div>
+
+    <!--aca el modal del boton agregar-->
+        <dialog class="card-agregar" id="modal">
+            <form class="form-ingreso">
+            <div class="nombre-int">
+                <input type="text" placeholder="Nombre insumo" class="input-nombre">
+            </div>
+            <div class="nombre-int">
+                <input type="text" placeholder="Cantidad" class="input-cantidad">
+            </div>
+                <button type="button" class="btn-agregar" id="modal-add">Agregar</button>
+                <button type="button" id="btnCancelar" class="btn-cancelar">cancelar</button>
+            </form>
+        </dialog>
+
+    
+    <script src="inventario.js"></script>
+</body>
+</html>
