@@ -2,9 +2,12 @@
   "name": "sistema-inventario",
   "version": "1.0.0",
   "description": "El sistema de inventario cuenta con una estructura modular, hasta ahora se cuenta con la navegacion visual e instancias funcionales con javascript como validacion de usuario, una generacion de mensajes, modificacion, eliminacion y creacion de tarjetas.",
+  "type": "module",
   "main": "Ingreso.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -18,7 +21,13 @@
   },
   "homepage": "https://github.com/Bams29/Sistema-inventario#readme",
   "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
     "mongodb": "^7.1.0",
     "mongoose": "^9.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
   }
 }
