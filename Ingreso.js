@@ -16,8 +16,15 @@ async function loguear() {
         const data = await res.json();
 
         if (res.ok) {
-            // opcionalmente puedes guardar el rol o token en localStorage
-            window.location.href = "Inventario/Inventario.html";
+            // guarda el rol en el almacenamiento del navegador
+            localStorage.setItem('rol', data.rol);
+
+            // envía al usuario según su rol
+            if (data.rol === 'admin') {
+                window.location.href = "Usuarios/Usuarios.html";
+            } else {
+                window.location.href = "Inventario/Inventario.html";
+            }
         } else {
             alert(data.message || "Credenciales incorrectas");
         }
