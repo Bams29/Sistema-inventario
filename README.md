@@ -6,4 +6,4 @@ Detalles:
 
 -las credenciales validas son "pedro" y "4321"
 
-para correcto funcionamiento por el momento se ejecuta "node server.js" en terminal y se accede a la pagina de ingreso por medio de "localhost:3000/Inventario/Inventario.html"
+para correcto funcionamiento por el momento se ejecuta "node server.js" en terminal y se accede a la pagina de ingreso por medio de "localhost:3000/Ingreso.html"
