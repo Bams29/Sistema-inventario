@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import { connectDB } from "./config/db.js";
 import User from "./models/User.js";
+import Insumo from "./models/Insumo.js";
 
 // load env vars
 dotenv.config();
@@ -68,6 +69,60 @@ dotenv.config();
       } catch (err) {
         console.error(err);
         res.status(500).json({ message: 'Error al crear usuario' });
+      }
+    });
+
+    // Insumos CRUD endpoints
+    // GET /api/insumos - fetch all insumos
+    app.get('/api/insumos', async (req, res) => {
+      try {
+        const insumos = await Insumo.find();
+        res.json(insumos);
+      } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Error al obtener insumos' });
+      }
+    });
+
+    // POST /api/insumos - create new insumo
+    app.post('/api/insumos', async (req, res) => {
+      const { nombre, cantidad, cantidadMinima, medida } = req.body;
+      if (!nombre || cantidad == null || cantidadMinima == null || !medida) {
+        return res.status(400).json({ message: 'Todos los campos son requeridos' });
+      }
+      try {
+        const newInsumo = await Insumo.create({ nombre, cantidad, cantidadMinima, medida });
+        res.status(201).json(newInsumo);
+      } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Error al crear insumo' });
+      }
+    });
+
+    // PUT /api/insumos/:id - update insumo
+    app.put('/api/insumos/:id', async (req, res) => {
+      const { id } = req.params;
+      const { nombre, cantidad, cantidadMinima, medida } = req.body;
+      try {
+        const updated = await Insumo.findByIdAndUpdate(id, { nombre, cantidad, cantidadMinima, medida }, { new: true });
+        if (!updated) return res.status(404).json({ message: 'Insumo no encontrado' });
+        res.json(updated);
+      } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Error al actualizar insumo' });
+      }
+    });
+
+    // DELETE /api/insumos/:id - delete insumo
+    app.delete('/api/insumos/:id', async (req, res) => {
+      const { id } = req.params;
+      try {
+        const deleted = await Insumo.findByIdAndDelete(id);
+        if (!deleted) return res.status(404).json({ message: 'Insumo no encontrado' });
+        res.json({ message: 'Insumo eliminado' });
+      } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Error al eliminar insumo' });
       }
     });
 

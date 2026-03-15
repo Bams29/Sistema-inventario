@@ -60,56 +60,7 @@
             <input type="text" class="Barra-Busqueda" placeholder="Buscar insumo...">
         </div>
         <div class="Tarjetas-Grid">
-            <div class="Tarjeta-Insumo">
-                <div class="Tarjeta-Contenido">
-                    <img src="../Images/klipartz.com (1).png" alt="Imagen Insumo" class="Tarjeta-Imagen">
-                    <div class="Tarjeta-Datos">
-                        <h3>Nombre: Insumo 1</h3>
-                        <p>ID: 001</p>
-                        <p>Cantidad: 15/15</p>
-                    </div>
-                </div>
-            </div>
-            <div class="Tarjeta-Insumo">
-                <div class="Tarjeta-Contenido">
-                    <img src="../Images/klipartz.com (1).png" alt="Imagen Insumo 2" class="Tarjeta-Imagen">
-                    <div class="Tarjeta-Datos">
-                        <h3>Nombre: Insumo 2</h3>
-                        <p>ID: 002</p>
-                        <p>Cantidad: 8/12</p>
-                    </div>
-                </div>
-            </div>
-            <div class="Tarjeta-Insumo">
-                <div class="Tarjeta-Contenido">
-                    <img src="../Images/klipartz.com (1).png" alt="Imagen Insumo 3" class="Tarjeta-Imagen">
-                    <div class="Tarjeta-Datos">
-                        <h3>Nombre: Insumo 3</h3>
-                        <p>ID: 003</p>
-                        <p>Cantidad: 22/30</p>
-                    </div>
-                </div>
-            </div>
-            <div class="Tarjeta-Insumo">
-                <div class="Tarjeta-Contenido">
-                    <img src="../Images/klipartz.com (1).png" alt="Imagen Insumo 3" class="Tarjeta-Imagen">
-                    <div class="Tarjeta-Datos">
-                        <h3>Nombre: Insumo 4</h3>
-                        <p>ID: 003</p>
-                        <p>Cantidad: 20/20</p>
-                    </div>
-                </div>
-            </div>
-            <div class="Tarjeta-Insumo">
-                <div class="Tarjeta-Contenido">
-                    <img src="../Images/klipartz.com (1).png" alt="Imagen Insumo 3" class="Tarjeta-Imagen">
-                    <div class="Tarjeta-Datos">
-                        <h3>Nombre: Insumo 5</h3>
-                        <p>ID: 003</p>
-                        <p>Cantidad: 12/40</p>
-                    </div>
-                </div>
-            <!--recordatorio Por si necesito añadir mas -->
+            <!-- Cards will be loaded dynamically from database -->
         </div>
     </div>
 
@@ -120,10 +71,13 @@
                 <input type="text" placeholder="Nombre insumo" class="input-nombre">
             </div>
             <div class="nombre-int">
-                <input type="text" placeholder="Cantidad" class="input-cantidad">
+                <input type="number" placeholder="Cantidad" class="input-cantidad">
             </div>
             <div class="nombre-int">
-                <input type="text" placeholder="Cantidad minima" class="input-cantidad-minima">
+                <input type="number" placeholder="Cantidad minima" class="input-cantidad-minima">
+            </div>
+            <div class="nombre-int">
+                <input type="text" placeholder="Medida (ej: lts)" class="input-medida">
             </div>
                 <button type="button" class="btn-agregar" id="modal-add">Agregar</button>
                 <button type="button" id="btnCancelar" class="btn-cancelar">cancelar</button>
