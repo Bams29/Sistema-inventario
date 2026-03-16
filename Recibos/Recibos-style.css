@@ -26,7 +26,8 @@ a {
 
 .Inventario-btn,
 .Recibos-btn,
-.Avisos-btn {
+.Avisos-btn,
+.Usuarios-btn {
     display: flex;
     align-items: center;
     justify-content: flex-start;
