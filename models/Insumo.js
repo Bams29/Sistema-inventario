@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const insumoSchema = new mongoose.Schema({
     nombre: { type: String, required: true },
-    antidad: { type: Number, required: true },
+    cantidad: { type: Number, required: true },
     cantidadMinima: { type: Number, required: true },
     medida: { type: String, required: true }
 });

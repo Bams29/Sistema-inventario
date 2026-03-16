@@ -7,29 +7,31 @@ function escapeHtml(str) {
 		.replace(/'/g, '&#039;');
 }
 
-// Function to get avisos from localStorage
-function getAvisos() {
-    const avisos = localStorage.getItem('avisos');
-    return avisos ? JSON.parse(avisos) : [];
+// Function to get avisos from API
+async function getAvisos() {
+    try {
+        const res = await fetch('/api/avisos');
+        if (!res.ok) return [];
+        return await res.json();
+    } catch (err) {
+        console.error('Error fetching avisos:', err);
+        return [];
+    }
 }
 
-// Function to render avisos from localStorage
-function renderAvisos() {
+// Function to render avisos
+async function renderAvisos() {
     const grid = document.querySelector('.Tarjetas-Grid');
     if (!grid) return;
     
-    const avisos = getAvisos();
-    
-    // Clear existing static cards (keep only the first sample card if needed)
+    // Clear existing cards
     const existingCards = grid.querySelectorAll('.Tarjeta-Aviso');
     existingCards.forEach(card => card.remove());
     
-    if (avisos.length === 0) {
-        // No avisos - show a message or leave it empty
-        return;
-    }
+    const avisos = await getAvisos();
     
-    // Create aviso cards from localStorage
+    if (avisos.length === 0) return;
+    
     avisos.forEach(aviso => {
         const card = document.createElement('div');
         card.className = 'Tarjeta-Aviso';
@@ -37,18 +39,13 @@ function renderAvisos() {
             <div class="Tarjeta-Contenido">
                 <img src="../Images/Advertencia.png" alt="Imagen Aviso" class="Tarjeta-Imagen">
                 <div class="Tarjeta-Datos">
-                    <p>${escapeHtml(aviso.mensaje)}</p>
+                    <p>${escapeHtml(aviso.mensaje || `Producto: ${aviso.Nombre_producto} en fecha ${aviso.fecha}`)}</p>
                     <p>Fecha: ${escapeHtml(aviso.fecha)}</p>
-                    <p>ID del Aviso: ${escapeHtml(aviso.id)}</p>
+                    <p>ID del Aviso: ${escapeHtml(aviso.aviso_id || aviso._id)}</p>
                 </div>
             </div>
         `;
-        
-        // Add click event to show popup
-        card.addEventListener('click', () => {
-            showAvisoPopup(aviso);
-        });
-        
+        card.addEventListener('click', () => showAvisoPopup(aviso));
         grid.appendChild(card);
     });
 }
@@ -60,9 +57,10 @@ function showAvisoPopup(aviso) {
 		dlg.className = 'avisos-popup';
 		dlg.innerHTML = `
 			<form method="dialog" style="padding:20px;max-width:480px">
-				<h3 style="margin:0 0 8px 0">Aviso ${escapeHtml(aviso.id)}</h3>
+				<h3 style="margin:0 0 8px 0">Aviso ${escapeHtml(aviso.aviso_id || aviso._id)}</h3>
+				<p style="margin:6px 0"><strong>Producto:</strong> ${escapeHtml(aviso.Nombre_producto || 'N/A')}</p>
 				<p style="margin:6px 0"><strong>Fecha:</strong> ${escapeHtml(aviso.fecha)}</p>
-				<p style="margin:12px 0">${escapeHtml(aviso.mensaje)}</p>
+				<p style="margin:12px 0">${escapeHtml(aviso.mensaje || `Stock bajo para ${aviso.Nombre_producto || 'item'}`)}</p>
 				<div style="display:flex;justify-content:flex-end;gap:8px;margin-top:12px">
 					<button id="dlg-close">Cerrar</button>
 				</div>
@@ -75,12 +73,26 @@ function showAvisoPopup(aviso) {
 
 		dlg.addEventListener('close', () => dlg.remove());
 	} else {
-		const text = `Aviso ${aviso.id}\nFecha: ${aviso.fecha}\n\n${aviso.mensaje}`;
+		const avisoId = aviso.aviso_id || aviso._id || aviso.id;
+		const text = `Aviso ${avisoId}\nProducto: ${aviso.Nombre_producto || 'N/A'}\nFecha: ${aviso.fecha}\n\n${aviso.mensaje || ''}`;
 		alert(text);
 	}
 }
 
 // Original popup logic for the first (static) card
+function hideUsuariosLink() {
+    const rol = localStorage.getItem('rol');
+    if (rol !== 'admin') {
+        const link = document.getElementById('link-usuarios');
+        if (link) link.style.display = 'none';
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    hideUsuariosLink();
+    wireExistingCards();
+});
+
 document.addEventListener('DOMContentLoaded', () => {
     // First, render avisos from localStorage
     renderAvisos();

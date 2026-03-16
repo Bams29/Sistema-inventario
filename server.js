@@ -4,6 +4,8 @@ import cors from "cors";
 import { connectDB } from "./config/db.js";
 import User from "./models/User.js";
 import Insumo from "./models/Insumo.js";
+import Aviso from "./models/Aviso.js";
+import Recibo from "./models/Recibo.js";
 
 // load env vars
 dotenv.config();
@@ -38,7 +40,6 @@ dotenv.config();
       }
 
       try {
-        // match against the collection you described
         const user = await User.findOne({ nombre: usuario, password: clave });
 
         if (!user) {
@@ -92,6 +93,7 @@ dotenv.config();
       }
       try {
         const newInsumo = await Insumo.create({ nombre, cantidad, cantidadMinima, medida });
+        await checkLowStockAndCreateAviso(newInsumo);
         res.status(201).json(newInsumo);
       } catch (err) {
         console.error(err);
@@ -106,12 +108,41 @@ dotenv.config();
       try {
         const updated = await Insumo.findByIdAndUpdate(id, { nombre, cantidad, cantidadMinima, medida }, { new: true });
         if (!updated) return res.status(404).json({ message: 'Insumo no encontrado' });
+        await checkLowStockAndCreateAviso(updated);
         res.json(updated);
       } catch (err) {
         console.error(err);
         res.status(500).json({ message: 'Error al actualizar insumo' });
       }
     });
+
+    // Function to check low stock and create aviso if needed
+    async function checkLowStockAndCreateAviso(insumo) {
+      if (Number(insumo.cantidad) < Number(insumo.cantidadMinima)) {
+        try {
+          const fecha = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+          const avisoId = `AVISO-${fecha}-${insumo._id.toString().slice(-4)}`;
+          const mensaje = `${insumo.nombre} bajo stock mínimo: ${insumo.cantidad} ${insumo.medida} (mínimo: ${insumo.cantidadMinima})`;
+
+          // evita duplicados por mismo producto/fecha
+          const existing = await Aviso.findOne({ producto_id: insumo._id, fecha });
+          if (existing) {
+            return;
+          }
+
+          await Aviso.create({
+            producto_id: insumo._id,
+            Nombre_producto: insumo.nombre,
+            fecha,
+            mensaje,
+            aviso_id: avisoId
+          });
+          console.log(`Aviso creado para ${insumo.nombre}:`, avisoId);
+        } catch (avisoErr) {
+          console.error('Error creating low stock aviso:', avisoErr);
+        }
+      }
+    }
 
     // DELETE /api/insumos/:id - delete insumo
     app.delete('/api/insumos/:id', async (req, res) => {
@@ -123,6 +154,121 @@ dotenv.config();
       } catch (err) {
         console.error(err);
         res.status(500).json({ message: 'Error al eliminar insumo' });
+      }
+    });
+
+    // Avisos CRUD endpoints
+    // GET /api/avisos - fetch all avisos
+    app.get('/api/avisos', async (req, res) => {
+      try {
+        const avisos = await Aviso.find();
+        res.json(avisos);
+      } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Error al obtener avisos' });
+      }
+    });
+
+    // POST /api/avisos - create new aviso
+    app.post('/api/avisos', async (req, res) => {
+      const { producto_id, Nombre_producto, fecha, mensaje } = req.body;
+      if (!producto_id || !Nombre_producto || !fecha) {
+        return res.status(400).json({ message: 'producto_id, Nombre_producto y fecha son requeridos' });
+      }
+      try {
+        const avisoId = `AVISO-${fecha}-${Date.now()}`;
+        const newAviso = await Aviso.create({
+          producto_id,
+          Nombre_producto,
+          fecha,
+          mensaje: mensaje || `${Nombre_producto} con stock bajo`,
+          aviso_id: avisoId
+        });
+        res.status(201).json(newAviso);
+      } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Error al crear aviso' });
+      }
+    });
+
+    // PUT /api/avisos/:id - update aviso
+    app.put('/api/avisos/:id', async (req, res) => {
+      const { id } = req.params;
+      const { valor, cantidades, empleado, fecha, insumos } = req.body;
+      try {
+        const updated = await Aviso.findByIdAndUpdate(id, { valor, cantidades, empleado, fecha, insumos }, { new: true });
+        if (!updated) return res.status(404).json({ message: 'Aviso no encontrado' });
+        res.json(updated);
+      } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Error al actualizar aviso' });
+      }
+    });
+
+    // DELETE /api/avisos/:id - delete aviso
+    app.delete('/api/avisos/:id', async (req, res) => {
+      const { id } = req.params;
+      try {
+        const deleted = await Aviso.findByIdAndDelete(id);
+        if (!deleted) return res.status(404).json({ message: 'Aviso no encontrado' });
+        res.json({ message: 'Aviso eliminado' });
+      } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Error al eliminar aviso' });
+      }
+    });
+
+    // Recibos CRUD endpoints
+    // GET /api/recibos
+    app.get('/api/recibos', async (req, res) => {
+      try {
+        const recibos = await Recibo.find();
+        res.json(recibos);
+      } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Error al obtener recibos' });
+      }
+    });
+
+    // POST /api/recibos
+    app.post('/api/recibos', async (req, res) => {
+      const { valor, cantidades, empleado, fecha, insumos } = req.body;
+      if (!valor || !cantidades || !empleado || !fecha || !insumos) {
+        return res.status(400).json({ message: 'Todos los campos son requeridos' });
+      }
+      try {
+        const newRecibo = await Recibo.create({ valor, cantidades, empleado, fecha, insumos });
+        res.status(201).json(newRecibo);
+      } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Error al crear recibo' });
+      }
+    });
+
+    // PUT /api/recibos/:id
+    app.put('/api/recibos/:id', async (req, res) => {
+      const { id } = req.params;
+      const { valor, cantidades, empleado, fecha, insumos } = req.body;
+      try {
+        const updated = await Recibo.findByIdAndUpdate(id, { valor, cantidades, empleado, fecha, insumos }, { new: true });
+        if (!updated) return res.status(404).json({ message: 'Recibo no encontrado' });
+        res.json(updated);
+      } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Error al actualizar recibo' });
+      }
+    });
+
+    // DELETE /api/recibos/:id
+    app.delete('/api/recibos/:id', async (req, res) => {
+      const { id } = req.params;
+      try {
+        const deleted = await Recibo.findByIdAndDelete(id);
+        if (!deleted) return res.status(404).json({ message: 'Recibo no encontrado' });
+        res.json({ message: 'Recibo eliminado' });
+      } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Error al eliminar recibo' });
       }
     });
 

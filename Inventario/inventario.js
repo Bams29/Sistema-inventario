@@ -201,3 +201,15 @@ document.addEventListener('DOMContentLoaded', loadInsumos);
 // Add search functionality
 searchInput.addEventListener('input', handleSearch);
 
+function hideUsuariosLink() {
+    const rol = localStorage.getItem('rol');
+    if (rol !== 'admin') {
+        const link = document.getElementById('link-usuarios');
+        if (link) link.style.display = 'none';
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    hideUsuariosLink();
+});
+

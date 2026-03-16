@@ -14,16 +14,7 @@
                 <span class="Logo-Tooltip">Ir a ingreso</span>
             </a>
         </div>
-        <script>
-            // hide Usuarios link for non-admin roles
-            const rol = localStorage.getItem('rol');
-            if (rol !== 'admin') {
-                document.addEventListener('DOMContentLoaded', () => {
-                    const link = document.getElementById('link-usuarios');
-                    if (link) link.style.display = 'none';
-                });
-            }
-        </script>
+
         <a href="../Inventario/Inventario.html">
             <button class="Inventario-btn">
                 <img src="../Images/klipartz.com (1).png" alt="Inventario" class="Nav-Icon">

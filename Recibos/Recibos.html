@@ -14,6 +14,7 @@
                 <span class="Logo-Tooltip">Ir a ingreso</span>
             </a>
         </div>
+
         <a href="../Inventario/Inventario.html">
             <button class="Inventario-btn">
                 <img src="../Images/klipartz.com (1).png" alt="Inventario" class="Nav-Icon">
@@ -21,7 +22,7 @@
             </button>
         </a>
         <a href="../Recibos/Recibos.html">
-            <button class="Recibos-btn" href="Recibos.html">
+            <button class="Recibos-btn">
                 <img src="../Images/Recibo.png" alt="Recibos" class="Nav-Icon">
                 Recibos
             </button>
@@ -32,10 +33,9 @@
                 Avisos
             </button>
         </a>
-                </a>
-            <a href="../Usuarios/Usuarios.html">
-            <button class="Inventario-btn">
-                <img src="../Images/klipartz.com.png" alt="Inventario" class="Nav-Icon">
+        <a id="link-usuarios" href="../Usuarios/Usuarios.html">
+            <button class="Usuarios-btn">
+                <img src="../Images/klipartz.com.png" alt="Usuarios" class="Nav-Icon">
                 Usuarios
             </button>
         </a>
@@ -50,43 +50,7 @@
             <input type="text" class="Barra-Busqueda" placeholder="Buscar recibo...">
         </div>
         <div class="Tarjetas-Grid">
-            <div class="Tarjeta-Recibo">
-                <div class="Tarjeta-Contenido">
-                    <img src="../Images/Recibo.png" alt="Imagen Recibo" class="Tarjeta-Imagen">
-                    <div class="Tarjeta-Datos">
-                        <h3>Valor: $150.000</h3>
-                        <p>Fecha: 13/09/2025</p>
-                        <p>Insumos: sosa caustica, Esencia para jabones</p>
-                        <p>Cantidad: 10</p>
-                        <p>Empleado: Juan Pérez</p>
-                    </div>
-                </div>
-            </div>
-            <div class="Tarjeta-Recibo">
-                <div class="Tarjeta-Contenido">
-                    <img src="../Images/Recibo.png" alt="Imagen Recibo" class="Tarjeta-Imagen">
-                    <div class="Tarjeta-Datos">
-                        <h3>Valor: $80.000</h3>
-                        <p>Fecha: 12/09/2025</p>
-                        <p>Insumos: Alcohol al 90</p>
-                        <p>Cantidad: 5</p>
-                        <p>Empleado: pepito Gómez</p>
-                    </div>
-                </div>
-            </div>
-            <div class="Tarjeta-Recibo">
-                <div class="Tarjeta-Contenido">
-                    <img src="../Images/Recibo.png" alt="Imagen Recibo" class="Tarjeta-Imagen">
-                    <div class="Tarjeta-Datos">
-                        <h3>Valor: $120.000</h3>
-                        <p>Fecha: 12/09/2025</p>
-                        <p>Insumos: Escencia, Azufre</p>
-                        <p>Cantidad: 5</p>
-                        <p>Empleado: pepito Gómez</p>
-                    </div>
-                </div>
-            </div>
-            <!-- REcordar que por aqui es para agregar mas -->
+            <!-- Cards will be loaded dynamically from database -->
         </div>
     </div>
 
@@ -113,6 +77,6 @@
             </form>
         </dialog>
 
-    <script src="Recibos.js"></script>
+    <script src="Recibos-new.js"></script>
 </body>
 </html>
