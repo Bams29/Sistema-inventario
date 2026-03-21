@@ -175,7 +175,7 @@ btnEditar.addEventListener('click', () => {
     }
     const card = selected[0];
     const id = card.dataset.insumoId;
-    // Find the insumo data (assuming we have it, or fetch individually)
+    // Find the insumo data 
     // For simplicity, populate from DOM
     const datos = card.querySelector('.Tarjeta-Datos');
     const nombre = datos.querySelector('h3').textContent.replace('Nombre: ', '');

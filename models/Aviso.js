@@ -8,5 +8,5 @@ const avisoSchema = new mongoose.Schema({
     aviso_id: { type: String, unique: true }
 }, { timestamps: true });
 
-// guardamos esta información en la colección AvisosInsumos (tu nombre objetivo)
+
 export default mongoose.model("Aviso", avisoSchema, "AvisosInsumos");

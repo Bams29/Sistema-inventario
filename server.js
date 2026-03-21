@@ -10,8 +10,6 @@ import Recibo from "./models/Recibo.js";
 // load env vars
 dotenv.config();
 
-// wrap startup in an async IIFE so we can await DB connection and
-// optionally perform initialization queries before starting the HTTP server.
 (async function main() {
   try {
     await connectDB();
@@ -51,6 +49,64 @@ dotenv.config();
       } catch (err) {
         console.error(err);
         return res.status(500).json({ message: "Error del servidor" });
+      }
+    });
+
+    // Users CRUD endpoints
+    // GET /api/users - fetch all users
+    app.get('/api/users', async (req, res) => {
+      try {
+        const users = await User.find();
+        res.json(users);
+      } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Error al obtener usuarios' });
+      }
+    });
+
+    // POST /api/users - create new user
+    app.post('/api/users', async (req, res) => {
+      const { nombre, password, rol, estado } = req.body;
+      if (!nombre || !password) {
+        return res.status(400).json({ message: 'Nombre y contraseña requeridos' });
+      }
+      try {
+        const existing = await User.findOne({ nombre });
+        if (existing) {
+          return res.status(409).json({ message: 'El usuario ya existe' });
+        }
+        const newUser = await User.create({ nombre, password, rol: rol || 'Empleado', estado });
+        res.status(201).json(newUser);
+      } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Error al crear usuario' });
+      }
+    });
+
+    // PUT /api/users/:id - update user
+    app.put('/api/users/:id', async (req, res) => {
+      const { id } = req.params;
+      const { nombre, password, rol, estado } = req.body;
+      try {
+        const updated = await User.findByIdAndUpdate(id, { nombre, password, rol, estado }, { new: true });
+        if (!updated) return res.status(404).json({ message: 'Usuario no encontrado' });
+        res.json(updated);
+      } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Error al actualizar usuario' });
+      }
+    });
+
+    // DELETE /api/users/:id - delete user
+    app.delete('/api/users/:id', async (req, res) => {
+      const { id } = req.params;
+      try {
+        const deleted = await User.findByIdAndDelete(id);
+        if (!deleted) return res.status(404).json({ message: 'Usuario no encontrado' });
+        res.json({ message: 'Usuario eliminado' });
+      } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Error al eliminar usuario' });
       }
     });
 

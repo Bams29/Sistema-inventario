@@ -9,9 +9,11 @@ const inputAcceso = modal.querySelector('.input-acceso');
 const grid = document.querySelector('#usuarios-grid');
 const btnEliminar = document.querySelector('#btn-eliminar');
 const btnEditar = document.querySelector('#btn-editar');
+const searchInput = document.querySelector('.Barra-Busqueda');
 
 let editMode = false;
-let editingRow = null;
+let editingUser = null;
+let allUsers = [];
 let idCounter = Date.now();
 
 function escapeHtml(str) {
@@ -23,21 +25,55 @@ function escapeHtml(str) {
         .replace(/'/g, '&#039;');
 }
 
-function createUserRow({ nombre, password, estado, acceso }) {
+function createUserRow(user) {
     const row = document.createElement('div');
     row.className = 'usuario-row';
-    const userId = `u${idCounter++}`;
-    row.dataset.userId = userId;
+row.dataset.userId = user._id;
     row.innerHTML = `
-        <div class="col-img">${escapeHtml(nombre)}</div>
-        <div class="col-nombre">${escapeHtml(password || '********')}</div>
-        <div class="col-estado">${escapeHtml(estado)}</div>
-        <div class="col-acceso">${escapeHtml(acceso)}</div>
-    `;
+        <div class="col-img">${escapeHtml(user.nombre)}</div>
+        <div class="col-nombre">${escapeHtml(user.password || '********')}</div>\n        <div class="col-estado">${escapeHtml(user.estado || user.rol || 'N/A')}</div>\n        <div class="col-acceso">${escapeHtml(user.rol)}</div>\n    `;
     row.addEventListener('click', () => {
         row.classList.toggle('selected');
     });
     return row;
+}
+
+async function loadUsers() {
+    try {
+        const res = await fetch('/api/users');
+        if (!res.ok) throw new Error('Error al cargar usuarios');
+        allUsers = await res.json();
+        handleSearch();
+    } catch (err) {
+        console.error(err);
+        alert('Error al cargar usuarios');
+        renderUsers([{nombre: 'Juanjo', password: '1445', estado: 'Activo', acceso: 'Empleado'}]);
+    }
+}
+
+function renderUsers(users) {
+    grid.innerHTML = '';
+    users.forEach(user => {
+        const row = createUserRow(user);
+        grid.appendChild(row);
+    });
+}
+
+function filterUsers(searchTerm) {
+    if (!searchTerm.trim()) return allUsers;
+    const term = searchTerm.toLowerCase();
+    return allUsers.filter(user =>
+        user.nombre.toLowerCase().includes(term) ||
+        (user.estado || '').toLowerCase().includes(term) ||
+        (user.acceso || '').toLowerCase().includes(term) ||
+        (user.rol || '').toLowerCase().includes(term)
+    );
+}
+
+function handleSearch() {
+    const searchTerm = searchInput.value;
+    const filteredUsers = filterUsers(searchTerm);
+    renderUsers(filteredUsers);
 }
 
 function wireExistingRows() {
@@ -59,7 +95,7 @@ btnAgregar.addEventListener('click', () => {
 });
 
 // Modal add/save button
-modalAdd.addEventListener('click', () => {
+modalAdd.addEventListener('click', async () => {
     const nombre = inputNombre.value.trim();
     const password = inputPassword.value;
     const estado = inputEstado.value.trim();
@@ -77,39 +113,61 @@ modalAdd.addEventListener('click', () => {
         alert('Seleccione un nivel de acceso');
         return;
     }
-    
-    if (editMode && editingRow) {
-        // Update existing row
-        const cols = editingRow.querySelectorAll('div');
-        cols[0].textContent = nombre;
-        cols[1].textContent = password || '********';
-        cols[2].textContent = estado;
-        cols[3].textContent = acceso;
-    } else {
-        // Create new row
-        const newRow = createUserRow({ nombre, password, estado, acceso });
-        grid.appendChild(newRow);
-        newRow.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+    try {
+        const userData = { nombre, password, rol: acceso, estado };
+        if (editMode && editingUser) {
+            // Update
+            const res = await fetch(`/api/users/${editingUser._id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(userData)
+            });
+            if (!res.ok) throw new Error('Error al actualizar');
+        } else {
+            // Create
+            const res = await fetch('/api/users', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(userData)
+            });
+            if (!res.ok) throw new Error('Error al crear');
+        }
+        modal.close();
+        loadUsers(); // Reload
+    } catch (err) {
+        console.error(err);
+        alert('Error al guardar usuario');
     }
-    modal.close();
 });
 
 // Cancel modal
 btnCancelar.addEventListener('click', () => {
     modal.close();
     editMode = false;
-    editingRow = null;
+    editingUser = null;
 });
 
 // Delete selected users
-btnEliminar.addEventListener('click', () => {
+btnEliminar.addEventListener('click', async () => {
     const selected = grid.querySelectorAll('.usuario-row.selected');
     if (selected.length === 0) {
         alert('Seleccione al menos un usuario para eliminar');
         return;
     }
     if (!confirm(`Eliminar ${selected.length} usuario(s)?`)) return;
-    selected.forEach(row => row.remove());
+
+    try {
+        for (const row of selected) {
+            const id = row.dataset.userId;
+            const res = await fetch(`/api/users/${id}`, { method: 'DELETE' });
+            if (!res.ok) throw new Error('Error al eliminar');
+        }
+        loadUsers(); // Reload
+    } catch (err) {
+        console.error(err);
+        alert('Error al eliminar usuarios');
+    }
 });
 
 // Edit selected user (requires exactly one selected)
@@ -123,23 +181,28 @@ btnEditar.addEventListener('click', () => {
         alert('Seleccione solo un usuario para editar');
         return;
     }
-    editingRow = selected[0];
+    const row = selected[0];
+    // Find user data from allUsers or use DOM fallback
+    const userId = row.dataset.userId;
+    editingUser = allUsers.find(u => u._id === userId) || { _id: userId };
+    
     editMode = true;
-    
-    // Populate modal with current values
-    const cols = editingRow.querySelectorAll('div');
-    const nombre = cols[0].textContent;
-    const password = cols[1].textContent === '********' ? '' : cols[1].textContent;
-    const estado = cols[2].textContent;
-    const acceso = cols[3].textContent;
-    
-    inputNombre.value = nombre;
-    inputPassword.value = password;
-    inputEstado.value = estado;
-    inputAcceso.value = acceso;
+    // Populate from data if available, fallback DOM
+    const cols = row.querySelectorAll('div');
+    inputNombre.value = cols[0].textContent;
+    inputPassword.value = cols[1].textContent === '********' ? '' : cols[1].textContent;
+    inputEstado.value = cols[2].textContent;
+    inputAcceso.value = cols[3].textContent;
     modalAdd.textContent = 'Guardar';
     modal.showModal();
 });
 
-// Initialize: wire current rows
-wireExistingRows();
+// Search event
+if (searchInput) {
+    searchInput.addEventListener('input', handleSearch);
+}
+
+// Load on DOM ready
+document.addEventListener('DOMContentLoaded', () => {
+    loadUsers();
+});

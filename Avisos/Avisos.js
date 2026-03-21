@@ -7,7 +7,9 @@ function escapeHtml(str) {
 		.replace(/'/g, '&#039;');
 }
 
-// Function to get avisos from API
+let allAvisos = [];
+
+// Get avisos from API
 async function getAvisos() {
     try {
         const res = await fetch('/api/avisos');
@@ -19,16 +21,12 @@ async function getAvisos() {
     }
 }
 
-// Function to render avisos
-async function renderAvisos() {
+// Render avisos
+function renderAvisos(avisos = allAvisos) {
     const grid = document.querySelector('.Tarjetas-Grid');
     if (!grid) return;
     
-    // Clear existing cards
-    const existingCards = grid.querySelectorAll('.Tarjeta-Aviso');
-    existingCards.forEach(card => card.remove());
-    
-    const avisos = await getAvisos();
+    grid.innerHTML = ''; // Clear all
     
     if (avisos.length === 0) return;
     
@@ -41,7 +39,7 @@ async function renderAvisos() {
                 <div class="Tarjeta-Datos">
                     <p>${escapeHtml(aviso.mensaje || `Producto: ${aviso.Nombre_producto} en fecha ${aviso.fecha}`)}</p>
                     <p>Fecha: ${escapeHtml(aviso.fecha)}</p>
-                    <p>ID del Aviso: ${escapeHtml(aviso.aviso_id || aviso._id)}</p>
+                    <p>ID: ${escapeHtml(aviso.aviso_id || aviso._id)}</p>
                 </div>
             </div>
         `;
@@ -50,17 +48,43 @@ async function renderAvisos() {
     });
 }
 
-// Function to show aviso in popup
+// Filter
+function filterAvisos(searchTerm) {
+    if (!searchTerm.trim()) return allAvisos;
+    const term = searchTerm.toLowerCase();
+    return allAvisos.filter(aviso =>
+        aviso.mensaje.toLowerCase().includes(term) ||
+        (aviso.Nombre_producto || '').toLowerCase().includes(term) ||
+        (aviso.fecha || '').includes(term) ||
+        (aviso.aviso_id || aviso._id || '').toLowerCase().includes(term)
+    );
+}
+
+// Handle search
+function handleSearch() {
+    const searchInput = document.querySelector('.Barra-Busqueda');
+    if (!searchInput) return;
+    const filtered = filterAvisos(searchInput.value);
+    renderAvisos(filtered);
+}
+
+// Load
+async function loadAvisos() {
+    allAvisos = await getAvisos();
+    renderAvisos();
+}
+
+// Show popup
 function showAvisoPopup(aviso) {
 	if ('showModal' in HTMLDialogElement.prototype) {
 		const dlg = document.createElement('dialog');
 		dlg.className = 'avisos-popup';
 		dlg.innerHTML = `
 			<form method="dialog" style="padding:20px;max-width:480px">
-				<h3 style="margin:0 0 8px 0">Aviso ${escapeHtml(aviso.aviso_id || aviso._id)}</h3>
-				<p style="margin:6px 0"><strong>Producto:</strong> ${escapeHtml(aviso.Nombre_producto || 'N/A')}</p>
-				<p style="margin:6px 0"><strong>Fecha:</strong> ${escapeHtml(aviso.fecha)}</p>
-				<p style="margin:12px 0">${escapeHtml(aviso.mensaje || `Stock bajo para ${aviso.Nombre_producto || 'item'}`)}</p>
+				<h3>Aviso ${escapeHtml(aviso.aviso_id || aviso._id)}</h3>
+				<p><strong>Producto:</strong> ${escapeHtml(aviso.Nombre_producto || 'N/A')}</p>
+				<p><strong>Fecha:</strong> ${escapeHtml(aviso.fecha)}</p>
+				<p>${escapeHtml(aviso.mensaje)}</p>
 				<div style="display:flex;justify-content:flex-end;gap:8px;margin-top:12px">
 					<button id="dlg-close">Cerrar</button>
 				</div>
@@ -68,18 +92,14 @@ function showAvisoPopup(aviso) {
 		`;
 		document.body.appendChild(dlg);
 		dlg.showModal();
-		const closeBtn = dlg.querySelector('#dlg-close');
-		if (closeBtn) closeBtn.addEventListener('click', () => dlg.close());
-
-		dlg.addEventListener('close', () => dlg.remove());
+		dlg.querySelector('#dlg-close').onclick = () => dlg.close();
+		dlg.onclose = () => dlg.remove();
 	} else {
-		const avisoId = aviso.aviso_id || aviso._id || aviso.id;
-		const text = `Aviso ${avisoId}\nProducto: ${aviso.Nombre_producto || 'N/A'}\nFecha: ${aviso.fecha}\n\n${aviso.mensaje || ''}`;
-		alert(text);
+		alert(`Aviso ${aviso.aviso_id}\n${aviso.mensaje}`);
 	}
 }
 
-// Original popup logic for the first (static) card
+// Hide usuarios link
 function hideUsuariosLink() {
     const rol = localStorage.getItem('rol');
     if (rol !== 'admin') {
@@ -88,48 +108,10 @@ function hideUsuariosLink() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    hideUsuariosLink();
-    wireExistingCards();
-});
-
+// Init
 document.addEventListener('DOMContentLoaded', () => {
-    // First, render avisos from localStorage
-    renderAvisos();
-    
-	const first = document.querySelector('.Tarjeta-Aviso');
-	if (!first) return;
-
-	const datos = first.querySelector('.Tarjeta-Datos');
-	const ps = datos ? Array.from(datos.querySelectorAll('p')).map(p => p.textContent.trim()) : [];
-	const message = ps[0] || '';
-	const date = (ps[1] || '').replace(/^Fecha:\s*/i, '');
-	const idText = (ps[2] || '').replace(/ID del Aviso:\s*/i, '');
-
-
-	if ('showModal' in HTMLDialogElement.prototype) {
-		const dlg = document.createElement('dialog');
-		dlg.className = 'avisos-popup';
-		dlg.innerHTML = `
-			<form method="dialog" style="padding:20px;max-width:480px">
-				<h3 style="margin:0 0 8px 0">Aviso ${escapeHtml(idText)}</h3>
-				<p style="margin:6px 0"><strong>Fecha:</strong> ${escapeHtml(date)}</p>
-				<p style="margin:12px 0">${escapeHtml(message)}</p>
-				<div style="display:flex;justify-content:flex-end;gap:8px;margin-top:12px">
-					<button id="dlg-close">Cerrar</button>
-				</div>
-			</form>
-		`;
-		document.body.appendChild(dlg);
-		dlg.showModal();
-		const closeBtn = dlg.querySelector('#dlg-close');
-		if (closeBtn) closeBtn.addEventListener('click', () => dlg.close());
-
-		dlg.addEventListener('close', () => dlg.remove());
-	} else {
-
-		const text = `Aviso ${idText}\nFecha: ${date}\n\n${message}`;
-		alert(text);
-	}
+    hideUsuariosLink();
+    loadAvisos();
+    const searchInput = document.querySelector('.Barra-Busqueda');
+    if (searchInput) searchInput.addEventListener('input', handleSearch);
 });
-
