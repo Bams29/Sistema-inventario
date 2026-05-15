@@ -1,0 +1,40 @@
+import { NavLink } from 'react-router-dom'
+import './Navigation.css'
+
+function Navigation() {
+  const rol = localStorage.getItem('rol')
+  const showUsuarios = rol === 'admin'
+
+  return (
+    <div className="Barra-Navegacion">
+      <div className="Logo-Ingreso">
+        <a href="../../Ingreso.html" className="Logo-Link">
+          <img src="/Images/klipartz.com.png" alt="Ir a ingreso" className="Logo-Imagen" />
+          <span className="Logo-Tooltip">Ir a ingreso</span>
+        </a>
+      </div>
+      <NavLink to="/avisos" className={({ isActive }) => isActive ? 'active-link' : ''}>
+        <button className="Avisos-btn" type="button">
+          <img src="/Images/Advertencia.png" alt="Avisos" className="Nav-Icon" />
+          Avisos
+        </button>
+      </NavLink>
+      <NavLink to="/recibos" className={({ isActive }) => isActive ? 'active-link' : ''}>
+        <button className="Recibos-btn" type="button">
+          <img src="/Images/Recibo.png" alt="Recibos" className="Nav-Icon" />
+          Recibos
+        </button>
+      </NavLink>
+      {showUsuarios && (
+        <NavLink to="/usuarios" className={({ isActive }) => isActive ? 'active-link' : ''}>
+          <button className="Inventario-btn" type="button">
+            <img src="/Images/klipartz.com.png" alt="Usuarios" className="Nav-Icon" />
+            Usuarios
+          </button>
+        </NavLink>
+      )}
+    </div>
+  )
+}
+
+export default Navigation
