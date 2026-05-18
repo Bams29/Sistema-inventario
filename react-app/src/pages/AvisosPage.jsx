@@ -1,4 +1,4 @@
-import AvisosList from '../components/AvisosList'
+import AvisosList from '../components/Avisos/AvisosList'
 
 function AvisosPage() {
   return (

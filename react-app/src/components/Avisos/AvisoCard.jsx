@@ -4,7 +4,7 @@ function AvisoCard({ aviso, onClick }) {
   return (
     <div className="Tarjeta-Aviso" onClick={onClick}>
       <div className="Tarjeta-Contenido">
-        <img src="../Images/Advertencia.png" alt="Imagen Aviso" className="Tarjeta-Imagen" />
+        <img src="/Images/Advertencia.png" alt="Imagen Aviso" className="Tarjeta-Imagen" />
         <div className="Tarjeta-Datos">
           <p>{aviso.mensaje || `Producto: ${aviso.Nombre_producto} en fecha ${aviso.fecha}`}</p>
           <p>Fecha: {aviso.fecha}</p>

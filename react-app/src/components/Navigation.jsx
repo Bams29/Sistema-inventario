@@ -13,6 +13,12 @@ function Navigation() {
           <span className="Logo-Tooltip">Ir a ingreso</span>
         </a>
       </div>
+      <NavLink to="/inventario" className={({ isActive }) => isActive ? 'active-link' : ''}>
+        <button className="Inventario-btn" type="button">
+          <img src="/Images/klipartz.com (1).png" alt="Inventario" className="Nav-Icon" />
+          Inventario
+        </button>
+      </NavLink>
       <NavLink to="/avisos" className={({ isActive }) => isActive ? 'active-link' : ''}>
         <button className="Avisos-btn" type="button">
           <img src="/Images/Advertencia.png" alt="Avisos" className="Nav-Icon" />

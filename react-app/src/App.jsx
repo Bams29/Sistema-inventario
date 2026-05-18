@@ -4,6 +4,7 @@ import Navigation from './components/Navigation'
 import AvisosPage from './pages/AvisosPage'
 import RecibosPage from './pages/RecibosPage'
 import UsuariosPage from './pages/UsuariosPage'
+import InventarioPage from './pages/InventarioPage'
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Navigate to="/avisos" replace />} />
             <Route path="/avisos" element={<AvisosPage />} />
+            <Route path="/inventario" element={<InventarioPage />} />
             <Route path="/recibos" element={<RecibosPage />} />
             <Route path="/usuarios" element={<UsuariosPage />} />
           </Routes>
