@@ -1,6 +1,8 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
+import fs from "fs";
+import path from "path";
 import { connectDB } from "./config/db.js";
 import User from "./models/User.js";
 import Insumo from "./models/Insumo.js";
@@ -27,6 +29,12 @@ dotenv.config();
     const app = express();
     app.use(cors()); // Habilitar CORS
     app.use(express.json()); // parse JSON bodies
+
+    const reactDist = path.join(process.cwd(), 'react-app', 'dist');
+    if (fs.existsSync(reactDist)) {
+      app.use(express.static(reactDist));
+    }
+
     app.use(express.static('.')); // Servir archivos estáticos del directorio actual
 
     // simple login endpoint
@@ -326,6 +334,17 @@ dotenv.config();
         console.error(err);
         res.status(500).json({ message: 'Error al eliminar recibo' });
       }
+    });
+
+    app.use((req, res, next) => {
+      if (req.path.startsWith('/api/')) {
+        return next();
+      }
+      const indexPath = path.join(reactDist, 'index.html');
+      if (fs.existsSync(indexPath)) {
+        return res.sendFile(indexPath);
+      }
+      return res.status(404).send('Not Found');
     });
 
     const PORT = process.env.PORT || 3000;

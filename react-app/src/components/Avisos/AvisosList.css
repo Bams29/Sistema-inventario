@@ -1,0 +1,21 @@
+.Zona-Tarjetas {
+  padding: 1rem;
+}
+
+.Zona-Superior {
+  margin-bottom: 1rem;
+}
+
+.Barra-Busqueda {
+  width: 100%;
+  max-width: 380px;
+  padding: 0.6rem 0.8rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+}
+
+.Tarjetas-Grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}

@@ -1,0 +1,231 @@
+.Zona-Tarjetas {
+  margin-left: 500px;
+  padding: 40px 30px;
+  min-height: 100vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: calc(100vw - 500px);
+  box-sizing: border-box;
+}
+
+.Zona-Superior {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  position: sticky;
+  top: 0;
+  background: #ebc322;
+  z-index: 2;
+  padding-bottom: 12px;
+}
+
+.Botones-Accion {
+  display: flex;
+  gap: 8px;
+}
+
+.Barra-Busqueda {
+  flex: 1;
+  padding: 10px 16px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #775c00;
+  outline: none;
+  max-width: 300px;
+}
+
+.Barra-Busqueda:focus {
+  border-color: #9d7800;
+  box-shadow: 0 0 10px rgba(119,92,0,0.2);
+}
+
+.Accion-btn {
+  padding: 10px 24px;
+  background: #775c00;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.Accion-btn:hover {
+  background: #9d7800;
+}
+
+.usuarios-table {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
+
+.usuarios-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  background: #775c00;
+  color: white;
+  padding: 16px;
+  font-weight: 600;
+  gap: 16px;
+}
+
+.usuarios-rows {
+  display: flex;
+  flex-direction: column;
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.usuario-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 16px;
+  padding: 12px 16px;
+  border-bottom: 1px solid #eee;
+  align-items: center;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.usuario-row:hover {
+  background: #f5f5f5;
+}
+
+.usuario-row.selected {
+  background: #fffbe6;
+  outline: 2px solid #9d7800;
+}
+
+.col-nombre,
+.col-password,
+.col-estado,
+.col-acceso {
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 998;
+}
+
+.card-agregar {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: none;
+  border-radius: 8px;
+  padding: 20px;
+  background: #fffbe6;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  max-width: 420px;
+  width: calc(100% - 40px);
+  z-index: 999;
+}
+
+.form-ingreso {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.nombre-int {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-nombre,
+.input-password,
+.input-estado,
+.input-acceso {
+  padding: 10px;
+  border: 1px solid #775c00;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.input-estado,
+.input-acceso {
+  cursor: pointer;
+}
+
+.btn-agregar,
+.btn-cancelar {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-agregar {
+  background: #775c00;
+  color: #fff;
+}
+
+.btn-agregar:hover {
+  background: #9d7800;
+}
+
+.btn-cancelar {
+  background: #ccc;
+  color: #000;
+}
+
+.btn-cancelar:hover {
+  background: #aaa;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 8px;
+}
+
+@media (max-width: 1200px) {
+  .usuarios-header,
+  .usuario-row {
+    grid-template-columns: 0.8fr 0.8fr 0.8fr 0.8fr;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .Zona-Tarjetas {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .usuarios-header,
+  .usuario-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .usuarios-header {
+    display: none;
+  }
+
+  .usuario-row {
+    grid-template-columns: 1fr;
+    padding: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 8px;
+  }
+
+  .usuario-row::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #775c00;
+  }
+}
