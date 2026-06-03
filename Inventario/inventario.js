@@ -104,6 +104,9 @@ modalAdd.addEventListener('click', async () => {
     const medida = inputMedida.value.trim();
 
     if (!nombre || isNaN(cantidad) || isNaN(cantidadMinima) || !medida) {
+        if (editMode) {
+            console.error('PUT /api/insumos: campos faltantes antes de actualizar insumo', { nombre, cantidad, cantidadMinima, medida });
+        }
         alert('Todos los campos son requeridos');
         return;
     }

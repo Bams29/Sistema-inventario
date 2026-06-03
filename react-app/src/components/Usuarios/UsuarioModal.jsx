@@ -16,17 +16,27 @@ function UsuarioModal({ isOpen, usuario, onClose, onSave, isEditing }) {
   }, [usuario])
 
   const handleSubmit = () => {
-    if (!nombre.trim()) {
-      alert('Ingrese el nombre del usuario')
-      return
-    }
-    if (!estado.trim()) {
-      alert('Seleccione un estado')
-      return
-    }
-    if (!acceso.trim()) {
-      alert('Seleccione un nivel de acceso')
-      return
+    const missing = []
+    if (!nombre.trim()) missing.push('nombre')
+    if (!estado.trim()) missing.push('estado')
+    if (!acceso.trim()) missing.push('acceso')
+
+    if (missing.length) {
+      if (isEditing) {
+        console.error('PUT /api/usuarios: campos faltantes antes de actualizar usuario', { missing, nombre, estado, acceso })
+      }
+      if (missing.includes('nombre')) {
+        alert('Ingrese el nombre del usuario')
+        return
+      }
+      if (missing.includes('estado')) {
+        alert('Seleccione un estado')
+        return
+      }
+      if (missing.includes('acceso')) {
+        alert('Seleccione un nivel de acceso')
+        return
+      }
     }
 
     onSave({

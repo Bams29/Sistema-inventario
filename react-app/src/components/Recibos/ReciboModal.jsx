@@ -18,7 +18,17 @@ function ReciboModal({ isOpen, recibo, onClose, onSave, isEditing }) {
   }, [recibo])
 
   const handleSubmit = () => {
-    if (!valor.trim() || !fecha.trim() || !insumos.trim() || !cantidades.trim() || !empleado.trim()) {
+    const missing = []
+    if (!valor.trim()) missing.push('valor')
+    if (!fecha.trim()) missing.push('fecha')
+    if (!insumos.trim()) missing.push('insumos')
+    if (!cantidades.trim()) missing.push('cantidades')
+    if (!empleado.trim()) missing.push('empleado')
+
+    if (missing.length) {
+      if (isEditing) {
+        console.error('PUT /api/recibos: campos faltantes antes de actualizar recibo', { missing, valor, fecha, insumos, cantidades, empleado })
+      }
       alert('Todos los campos son requeridos')
       return
     }
