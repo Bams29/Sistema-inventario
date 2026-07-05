@@ -2,7 +2,6 @@
   margin-left: 500px;
   padding: 40px 30px;
   min-height: 100vh;
-  overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 24px;
