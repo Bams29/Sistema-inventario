@@ -6,8 +6,8 @@
 
 .content-area {
   /* La barra es fixed con width 500px, así evitamos offsets raros */
-  padding-left: 500px;
-  width: 100%;
+  margin-left: 500px;
+  width: calc(100% - 500px);
   min-height: auto;
   background: #ebc322;
   padding-top: 80px;
