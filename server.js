@@ -53,7 +53,7 @@ dotenv.config();
         }
 
         // you can return additional data (JWT, rol, etc.)
-        return res.json({ success: true, rol: user.rol });
+        return res.json({ success: true, rol: user.rol, nombre: user.nombre });
       } catch (err) {
         console.error(err);
         return res.status(500).json({ message: "Error del servidor" });

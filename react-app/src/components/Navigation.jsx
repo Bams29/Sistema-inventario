@@ -1,9 +1,18 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import './Navigation.css'
 
 function Navigation() {
   const rol = localStorage.getItem('rol')
+  const nombre = localStorage.getItem('nombre')
   const showUsuarios = rol === 'admin'
+  const navigate = useNavigate()
+
+  const handleLogout = () => {
+    localStorage.removeItem('user')
+    localStorage.removeItem('rol')
+    localStorage.removeItem('nombre')
+    navigate('/login')
+  }
 
   return (
     <div className="Barra-Navegacion">
@@ -39,6 +48,12 @@ function Navigation() {
           </button>
         </NavLink>
       )}
+      <div className="user-info">
+        <span className="user-name">{nombre}</span>
+        <button className="logout-btn" onClick={handleLogout}>
+          Cerrar sesión
+        </button>
+      </div>
     </div>
   )
 }
