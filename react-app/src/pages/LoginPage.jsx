@@ -28,7 +28,13 @@ export default function LoginPage() {
         localStorage.setItem('user', JSON.stringify(data))
         localStorage.setItem('rol', data.rol)
         localStorage.setItem('nombre', data.nombre)
-        navigate('/avisos')
+        
+        // Redirigir según el rol (igual que el legacy)
+        if (data.rol === 'admin') {
+          navigate('/usuarios')
+        } else {
+          navigate('/inventario')
+        }
       } else {
         setError(data.message || 'Credenciales incorrectas')
       }
@@ -42,35 +48,62 @@ export default function LoginPage() {
 
   return (
     <div className="login-container">
-      <div className="login-box">
-        <h1>Sistema de Inventario</h1>
-        {error && <div className="error-message">{error}</div>}
-        <form onSubmit={handleLogin}>
-          <div className="form-group">
-            <label>Usuario</label>
-            <input
-              type="text"
-              value={usuario}
-              onChange={(e) => setUsuario(e.target.value)}
-              required
-              disabled={loading}
-            />
+      <div className="F-ingreso">
+        <div className="decor decor-top-left">
+          <img src="/Images/klipartz2.png" alt="Decoración" />
+        </div>
+        <div className="decor decor-top-right">
+          <img src="/Images/klipartz.com (1).png" alt="Decoración" />
+        </div>
+        <div className="card-ingreso">
+          <div className="card-img">
+            <img src="/Images/klipartz.com.png" alt="Usuario" />
           </div>
-          <div className="form-group">
-            <label>Contraseña</label>
-            <input
-              type="password"
-              value={clave}
-              onChange={(e) => setClave(e.target.value)}
-              required
-              disabled={loading}
-            />
-          </div>
-          <button type="submit" disabled={loading}>
-            {loading ? 'Cargando...' : 'Ingresar'}
-          </button>
-        </form>
+          {error && <div className="error-message">{error}</div>}
+          <form className="form-ingreso" onSubmit={handleLogin}>
+            <div className="nombre-int">
+              <input
+                type="text"
+                placeholder="Usuario"
+                className="input-nombre"
+                value={usuario}
+                onChange={(e) => setUsuario(e.target.value)}
+                disabled={loading}
+              />
+            </div>
+            <div className="contraseña-int">
+              <input
+                type="password"
+                placeholder="Contraseña"
+                className="input-contraseña"
+                value={clave}
+                onChange={(e) => setClave(e.target.value)}
+                disabled={loading}
+              />
+            </div>
+            <button type="submit" className="btn-ingreso" disabled={loading}>
+              {loading ? 'Cargando...' : 'Ingresar'}
+            </button>
+          </form>
+        </div>
+        <div className="decor decor-bottom-left">
+          <img src="/Images/klipartz.com (1).png" alt="Decoración" />
+        </div>
+        <div className="decor decor-bottom-right">
+          <img src="/Images/klipartz2.png" alt="Decoración" />
+        </div>
+      </div>
+      <div className="zona-logo">
+        <div className="logo">
+          <img src="/Images/pngegg.png" alt="Logo" />
+        </div>
+        <div className="nombre">
+          ¡BIENVENIDO AL <br />
+          SISTEMA DE INVENTARIO <br />
+          DE QUIMITEN!
+        </div>
       </div>
     </div>
   )
 }
+

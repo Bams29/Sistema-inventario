@@ -12,7 +12,11 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        {/* Login es la ruta principal */}
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/" element={<Navigate to="/login" replace />} />
+        
+        {/* Rutas protegidas con Layout */}
         <Route
           path="/*"
           element={
@@ -20,11 +24,11 @@ function App() {
               <Navigation />
               <div className="content-area">
                 <Routes>
-                  <Route path="/" element={<Navigate to="/avisos" replace />} />
                   <Route path="/avisos" element={<ProtectedRoute element={<AvisosPage />} />} />
                   <Route path="/inventario" element={<ProtectedRoute element={<InventarioPage />} />} />
                   <Route path="/recibos" element={<ProtectedRoute element={<RecibosPage />} />} />
                   <Route path="/usuarios" element={<ProtectedRoute element={<UsuariosPage />} />} />
+                  <Route path="/*" element={<Navigate to="/inventario" replace />} />
                 </Routes>
               </div>
             </div>
