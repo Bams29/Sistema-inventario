@@ -8,6 +8,7 @@
   gap: 24px;
   width: calc(100vw - 500px);
   box-sizing: border-box;
+  background: #ebc322;
 }
 
 .Zona-Superior {
@@ -34,12 +35,11 @@
   border-radius: 8px;
   border: 1px solid #775c00;
   outline: none;
-  max-width: 300px;
 }
 
 .Barra-Busqueda:focus {
   border-color: #9d7800;
-  box-shadow: 0 0 10px rgba(119,92,0,0.2);
+  box-shadow: 0 0 10px rgba(119, 92, 0, 0.2);
 }
 
 .Accion-btn {
@@ -58,61 +58,83 @@
 }
 
 .usuarios-table {
-  background: white;
+  background-color: #faebd7;
+  border: 2px solid #775c00;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  width: 100%;
 }
 
 .usuarios-header {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  background: #775c00;
-  color: white;
-  padding: 16px;
-  font-weight: 600;
-  gap: 16px;
+  grid-template-columns: 100px 1fr 150px 150px;
+  gap: 0;
+  background: #d4a574;
+  font-weight: bold;
+  border-bottom: 2px solid #775c00;
+}
+
+.usuarios-header > div {
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid #775c00;
+}
+
+.usuarios-header > div:last-child {
+  border-right: none;
 }
 
 .usuarios-rows {
   display: flex;
   flex-direction: column;
-  max-height: 600px;
-  overflow-y: auto;
 }
 
 .usuario-row {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap: 16px;
-  padding: 12px 16px;
-  border-bottom: 1px solid #eee;
-  align-items: center;
+  grid-template-columns: 100px 1fr 150px 150px;
+  gap: 0;
+  border-bottom: 1px solid #ccc;
   cursor: pointer;
   transition: background 0.2s;
 }
 
+.usuario-row > div {
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid #ddd;
+}
+
+.usuario-row > div:last-child {
+  border-right: none;
+}
+
 .usuario-row:hover {
-  background: #f5f5f5;
+  background: #fdf8f0;
 }
 
 .usuario-row.selected {
-  background: #fffbe6;
-  outline: 2px solid #9d7800;
+  background: #9d7800;
+  color: #fff;
 }
 
-.col-nombre,
-.col-password,
-.col-estado,
-.col-acceso {
-  word-break: break-word;
-  overflow-wrap: break-word;
+.usuario-row.selected .Uss-pfp {
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+}
+
+.Uss-pfp {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
 }
 
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.45);
+  background: rgba(0, 0, 0, 0.45);
   z-index: 998;
 }
 
@@ -125,7 +147,7 @@
   border-radius: 8px;
   padding: 20px;
   background: #fffbe6;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
   max-width: 420px;
   width: calc(100% - 40px);
   z-index: 999;
@@ -186,46 +208,10 @@
   background: #aaa;
 }
 
-.modal-actions {
-  display: flex;
-  gap: 8px;
-}
-
-@media (max-width: 1200px) {
-  .usuarios-header,
-  .usuario-row {
-    grid-template-columns: 0.8fr 0.8fr 0.8fr 0.8fr;
-    font-size: 0.9rem;
-  }
-}
-
 @media (max-width: 768px) {
   .Zona-Tarjetas {
     margin-left: 0;
     width: 100%;
   }
-
-  .usuarios-header,
-  .usuario-row {
-    grid-template-columns: 1fr;
-    gap: 8px;
-  }
-
-  .usuarios-header {
-    display: none;
-  }
-
-  .usuario-row {
-    grid-template-columns: 1fr;
-    padding: 16px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    margin-bottom: 8px;
-  }
-
-  .usuario-row::before {
-    content: attr(data-label);
-    font-weight: 600;
-    color: #775c00;
-  }
 }
+

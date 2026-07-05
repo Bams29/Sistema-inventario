@@ -55,13 +55,14 @@ export default function LoginPage() {
         <div className="decor decor-top-right">
           <img src="/Images/klipartz.com (1).png" alt="Decoración" />
         </div>
+        
         <div className="card-ingreso">
+          {error && <div className="error-message">{error}</div>}
           <div className="card-img">
             <img src="/Images/klipartz.com.png" alt="Usuario" />
           </div>
-          {error && <div className="error-message">{error}</div>}
           <form className="form-ingreso" onSubmit={handleLogin}>
-            <div className="nombre-int">
+            <div className="form-field">
               <input
                 type="text"
                 placeholder="Usuario"
@@ -71,7 +72,7 @@ export default function LoginPage() {
                 disabled={loading}
               />
             </div>
-            <div className="contraseña-int">
+            <div className="form-field">
               <input
                 type="password"
                 placeholder="Contraseña"
@@ -86,6 +87,7 @@ export default function LoginPage() {
             </button>
           </form>
         </div>
+
         <div className="decor decor-bottom-left">
           <img src="/Images/klipartz.com (1).png" alt="Decoración" />
         </div>
@@ -93,6 +95,7 @@ export default function LoginPage() {
           <img src="/Images/klipartz2.png" alt="Decoración" />
         </div>
       </div>
+
       <div className="zona-logo">
         <div className="logo">
           <img src="/Images/pngegg.png" alt="Logo" />
@@ -106,4 +109,5 @@ export default function LoginPage() {
     </div>
   )
 }
+
 

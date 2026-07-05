@@ -1,21 +1,148 @@
 .Zona-Tarjetas {
-  padding: 1rem;
-}
-
-.Zona-Superior {
-  margin-bottom: 1rem;
-}
-
-.Barra-Busqueda {
-  width: 100%;
-  max-width: 380px;
-  padding: 0.6rem 0.8rem;
-  border-radius: 0.5rem;
-  border: 1px solid #ccc;
+  margin-left: 500px;
+  padding: 40px 30px;
+  min-height: 100vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: calc(100vw - 500px);
+  box-sizing: border-box;
+  background: #ebc322;
 }
 
 .Tarjetas-Grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  width: 100%;
 }
+
+.Tarjeta-Aviso {
+  background: #fffbe6;
+  border: 2px solid #775c00;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+  font-size: 1rem;
+  min-width: 0;
+  width: 100%;
+  min-height: 110px;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  max-width: none;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.Tarjeta-Aviso:hover {
+  transform: translateY(-3px);
+}
+
+.Tarjeta-Aviso.selected {
+  outline: 3px solid #9d7800;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+.Tarjeta-Contenido {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  width: 100%;
+}
+
+.Tarjeta-Datos {
+  flex: 1;
+  flex-shrink: 1;
+  min-width: 0;
+}
+
+.Tarjeta-Imagen {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background: #f5f5f5;
+}
+
+.Tarjeta-Datos h3 {
+  margin: 0 0 8px 0;
+  font-size: 1.2rem;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+.Tarjeta-Datos p {
+  margin: 4px 0;
+  font-size: 1rem;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+.Zona-Superior {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  position: sticky;
+  top: 0;
+  background: #ebc322;
+  z-index: 2;
+  padding-bottom: 12px;
+}
+
+.Botones-Accion {
+  display: flex;
+  gap: 8px;
+}
+
+.Barra-Busqueda {
+  flex: 1;
+  padding: 10px 16px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #775c00;
+  outline: none;
+}
+
+.Barra-Busqueda:focus {
+  border-color: #9d7800;
+  box-shadow: 0 0 10px rgba(119, 92, 0, 0.2);
+}
+
+.Accion-btn {
+  padding: 10px 24px;
+  background: #775c00;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.Accion-btn:hover {
+  background: #9d7800;
+}
+
+@media (max-width: 1200px) {
+  .Tarjetas-Grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .Tarjetas-Grid {
+    grid-template-columns: 1fr;
+  }
+
+  .Zona-Tarjetas {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+

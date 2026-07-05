@@ -1,11 +1,11 @@
-body {
-  background-color: #ebc322;
-  display: flex;
-  justify-content: flex-end;
+* {
   margin: 0;
-  height: 100vh;
-  font-family: 'Poppins';
-  font-size: 22px;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', Arial, sans-serif;
 }
 
 .login-container {
@@ -13,17 +13,6 @@ body {
   width: 100vw;
   height: 100vh;
   background-color: #ebc322;
-}
-
-.zona-logo {
-  position: relative;
-  width: 40vw;
-  height: 100vh;
-  background-color: #775c00;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 
 .F-ingreso {
@@ -44,9 +33,14 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 400px;
-  max-width: 400px;
-  height: 60vh;
+  justify-content: center;
+  width: 400px;
+  min-height: 500px;
+  gap: 20px;
+}
+
+.card-img {
+  margin-bottom: 10px;
 }
 
 .card-img img {
@@ -54,8 +48,21 @@ body {
   height: 130px;
   object-fit: cover;
   border-radius: 50%;
-  margin-bottom: 24px;
   background: #e6d498;
+}
+
+.form-ingreso {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+.form-field {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .input-nombre,
@@ -76,38 +83,15 @@ body {
   color: #666;
 }
 
-.form-ingreso {
-  position: relative;
-  width: 100%;
-  height: 250px;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-}
-
-.nombre-int {
-  position: absolute;
-  top: 83px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 90%;
-}
-
-.contraseña-int {
-  position: absolute;
-  top: 190px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 90%;
+.input-nombre:disabled,
+.input-contraseña:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
 }
 
 .btn-ingreso {
-  position: absolute;
-  top: 120px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  padding: 12px 0;
+  width: 90%;
+  padding: 15px 0;
   background: #e6d498;
   color: #000000;
   border: none;
@@ -117,7 +101,7 @@ body {
   cursor: pointer;
   font-weight: bold;
   transition: background 0.2s;
-  margin-top: 260px;
+  margin-top: 10px;
 }
 
 .btn-ingreso:hover:not(:disabled) {
@@ -129,37 +113,41 @@ body {
   cursor: not-allowed;
 }
 
-.logo {
-  margin-bottom: 250px;
+.zona-logo {
+  position: relative;
+  width: 40vw;
+  height: 100vh;
+  background-color: #775c00;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
 .logo img {
-  width: 350px;
-  height: 350px;
+  width: 250px;
+  height: 250px;
   object-fit: cover;
-  display: block;
 }
 
 .nombre {
-  position: absolute;
-  bottom: 230px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 2.5rem;
+  font-size: 2rem;
   color: #ffffff;
   font-family: 'Poppins', Arial, sans-serif;
   text-align: center;
-  line-height: 1.3;
+  line-height: 1.4;
   padding: 0 20px;
 }
 
 .decor {
   position: absolute;
-  width: 60px;
-  height: 60px;
   z-index: 2;
 }
 
@@ -180,15 +168,15 @@ body {
 }
 
 .decor-bottom-left {
-  bottom: 500px;
+  bottom: 200px;
   left: 90px;
-  rotate: 15deg;
+  transform: rotate(15deg);
 }
 
 .decor-bottom-right {
-  bottom: 500px;
+  bottom: 200px;
   right: 150px;
-  rotate: -15deg;
+  transform: rotate(-15deg);
 }
 
 .error-message {
@@ -196,12 +184,10 @@ body {
   color: #c33;
   padding: 12px;
   border-radius: 5px;
-  margin-bottom: 20px;
-  font-size: 14px;
+  font-size: 0.9rem;
   border: 1px solid #fcc;
   width: 90%;
   text-align: center;
-  position: absolute;
-  top: 20px;
+  margin-bottom: 10px;
 }
 
