@@ -22,20 +22,8 @@
   padding: 20px 30px;
 }
 
-/* Ajustes específicos para Usuarios */
-.usuarios-page-title {
-  margin: 0; /* si el h1 está empujando contenido, lo controlamos */
-  padding: 0;
-  line-height: 1.1;
-}
-
-
 .page-container h1 {
   margin-bottom: 8px;
-  color: #3f2b00;
-}
-
-.usuarios-page .usuarios-page-title {
   color: #3f2b00;
 }
 
