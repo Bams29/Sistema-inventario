@@ -9,8 +9,10 @@
   width: calc(100vw - 500px);
   min-height: auto;   /* o simplemente quita esta línea */
   background: #ebc322;
-  padding-top: 40px; /* evita que el contenido quede “debajo” de la navegación fija */
+  padding-top: 80px; /* la barra es fixed y además usa padding-top:40px */
 }
+
+
 
 
 .page-container {
