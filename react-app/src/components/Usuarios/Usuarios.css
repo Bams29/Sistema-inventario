@@ -1,7 +1,7 @@
 .Zona-Tarjetas {
   margin-left: 500px;
   padding: 40px 30px;
-  min-height: 100vh;
+  height: auto;
   display: flex;
   flex-direction: column;
   gap: 24px;
