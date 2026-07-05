@@ -2,11 +2,11 @@
 set -e
 
 echo "Installing root dependencies..."
-npm install
+npm install --legacy-peer-deps
 
 echo "Building React app..."
 cd react-app
-npm install
+npm install --legacy-peer-deps
 npm run build
 cd ..
 
