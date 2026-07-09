@@ -65,7 +65,7 @@ function UsuarioModal({ isOpen, usuario, onClose, onSave, isEditing }) {
           <div className="nombre-int">
             <input
               type="password"
-              placeholder="Contraseña"
+              placeholder={isEditing ? 'Contraseña (actual) o nueva' : 'Contraseña'}
               className="input-password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
