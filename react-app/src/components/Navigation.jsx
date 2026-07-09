@@ -19,7 +19,7 @@ function Navigation() {
       <div className="Logo-Ingreso">
         <div className="Logo-Link">
           <img src="/Images/klipartz.com.png" alt="Ir a ingreso" className="Logo-Imagen" />
-          <span className="Logo-Tooltip">Ir a ingreso</span>
+          <span className="Logo-Tooltip">Esto es un logo</span>
         </div>
       </div>
       <NavLink to="/inventario" className={({ isActive }) => isActive ? 'active-link' : ''}>
