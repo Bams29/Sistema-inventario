@@ -113,6 +113,27 @@
   text-align: center;
 }
 
+.col-password {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.toggle-row-password-btn {
+  border: 1px solid #775c00;
+  background: #ebc322;
+  color: #000;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 6px 10px;
+  font-size: 0.85rem;
+}
+
+.toggle-row-password-btn:hover {
+  background: #9d7800;
+}
+
 .usuario-row > div:last-child {
   border-right: none;
 }
@@ -184,6 +205,32 @@
 .input-acceso {
   cursor: pointer;
 }
+
+.password-field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.password-field .input-password {
+  flex: 1;
+}
+
+.toggle-password-btn {
+  padding: 10px 12px;
+  border: 1px solid #775c00;
+  background: #ebc322;
+  color: #000;
+  border-radius: 4px;
+  cursor: pointer;
+  white-space: nowrap;
+  font-size: 0.9rem;
+}
+
+.toggle-password-btn:hover {
+  background: #9d7800;
+}
+
 
 .btn-agregar,
 .btn-cancelar {

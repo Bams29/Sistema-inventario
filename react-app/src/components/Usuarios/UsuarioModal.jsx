@@ -5,6 +5,7 @@ function UsuarioModal({ isOpen, usuario, onClose, onSave, isEditing }) {
 
   const [nombre, setNombre] = useState(usuario?.nombre || '')
   const [password, setPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
   const [estado, setEstado] = useState(usuario?.estado || '')
   const [acceso, setAcceso] = useState(usuario?.rol || '')
 
@@ -14,6 +15,10 @@ function UsuarioModal({ isOpen, usuario, onClose, onSave, isEditing }) {
     setEstado(usuario?.estado || '')
     setAcceso(usuario?.rol || '')
   }, [usuario])
+
+  useEffect(() => {
+    setShowPassword(false)
+  }, [isEditing])
 
   const handleSubmit = () => {
     const missing = []
@@ -63,13 +68,23 @@ function UsuarioModal({ isOpen, usuario, onClose, onSave, isEditing }) {
             />
           </div>
           <div className="nombre-int">
-            <input
-              type="password"
-              placeholder={isEditing ? 'Contraseña (actual) o nueva' : 'Contraseña'}
-              className="input-password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+            <div className="password-field">
+              <input
+                type={showPassword ? 'text' : 'password'}
+                placeholder={isEditing ? 'Contraseña (actual) o nueva' : 'Contraseña'}
+                className="input-password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <button
+                type="button"
+                className="toggle-password-btn"
+                onClick={() => setShowPassword((v) => !v)}
+                aria-label={showPassword ? 'Ocultar contraseña' : 'Ver contraseña'}
+              >
+                {showPassword ? 'Ocultar' : 'Ver'}
+              </button>
+            </div>
           </div>
           <div className="nombre-int">
             <select
