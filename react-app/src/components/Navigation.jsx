@@ -17,10 +17,10 @@ function Navigation() {
   return (
     <div className="Barra-Navegacion">
       <div className="Logo-Ingreso">
-        <a href="../../Ingreso.html" className="Logo-Link">
+        <div className="Logo-Link">
           <img src="/Images/klipartz.com.png" alt="Ir a ingreso" className="Logo-Imagen" />
           <span className="Logo-Tooltip">Ir a ingreso</span>
-        </a>
+        </div>
       </div>
       <NavLink to="/inventario" className={({ isActive }) => isActive ? 'active-link' : ''}>
         <button className="Inventario-btn" type="button">
