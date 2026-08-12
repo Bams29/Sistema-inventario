@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="Avisos-style.css">
 </head>
 <body>
+    <button class="nav-toggle" aria-label="Ocultar navegación"><span class="hamburger"></span></button>
     <div class="Barra-Navegacion">
         <div class="Logo-Ingreso">
             <a href="../ingreso.html" class="Logo-Link">
@@ -32,7 +33,6 @@
                 Avisos
             </button>
         </a>
-                </a>
             <a id="link-usuarios" href="../Usuarios/Usuarios.html">
             <button class="Inventario-btn">
                 <img src="../Images/klipartz.com.png" alt="Inventario" class="Nav-Icon">
@@ -50,5 +50,30 @@
         </div>
 </div>
     <script src="Avisos.js"></script>
+        <script>
+        (function(){
+            const nav = document.querySelector('.Barra-Navegacion');
+            if (!nav) return;
+            let collapsed = localStorage.getItem('navCollapsed');
+            if (collapsed === null) collapsed = 'false';
+            const btn = document.querySelector('.nav-toggle');
+            if (!btn) return;
+            function apply(){
+                if (collapsed === 'false'){
+                    nav.classList.remove('mobile-collapsed');
+                    document.body.classList.add('nav-open');
+                } else {
+                    nav.classList.add('mobile-collapsed');
+                    document.body.classList.remove('nav-open');
+                }
+            }
+            btn.addEventListener('click', function(){
+                collapsed = (collapsed === 'true') ? 'false' : 'true';
+                localStorage.setItem('navCollapsed', collapsed);
+                apply();
+            });
+            apply();
+        })();
+        </script>
 </body>
 </html>

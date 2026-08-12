@@ -2,7 +2,7 @@
   position: fixed;
   left: 0;
   top: 0;
-  width: 500px;
+  width: 260px;
   height: 100vh;
   background: #775c00;
   display: flex;
@@ -58,17 +58,19 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  width: 470px;
-  height: 100px;
-  margin: 5px 0;
+  width: calc(100% - 24px);
+  max-width: 220px;
+  height: 64px;
+  margin: 6px 0;
   background: #775c00;
   border: 2px solid #775c00;
   border-radius: 10px;
-  font-size: 1.2rem;
+  font-size: 1rem;
   cursor: pointer;
   transition: background 0.2s, border-color 0.2s;
-  gap: 90px;
+  gap: 16px;
   color: white;
+  padding: 0 14px;
 }
 
 .active-link button {
@@ -122,5 +124,100 @@
 
 .logout-btn:hover {
   background: #a01830;
+}
+
+/* Mobile toggle styles (only active for small screens) */
+@media (max-width: 425px) {
+  .nav-toggle {
+    display: block;
+    position: fixed;
+    right: 12px;
+    top: 10px;
+    background: rgba(0, 0, 0, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    border-radius: 10px;
+    padding: 10px;
+    z-index: 1400;
+    cursor: pointer;
+  }
+
+  .nav-toggle .hamburger {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: #fff;
+    position: relative;
+  }
+  .nav-toggle .hamburger::before,
+  .nav-toggle .hamburger::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 22px;
+    height: 2px;
+    background: #fff;
+  }
+  .nav-toggle .hamburger::before { top: -7px }
+  .nav-toggle .hamburger::after { top: 7px }
+
+  /* mobile: nav is a left overlay that slides in/out */
+  .Barra-Navegacion {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 260px;
+    height: 100vh;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px 12px;
+    gap: 14px;
+    background: #775c00;
+    transform: translateX(0);
+    transition: transform 0.22s ease;
+    z-index: 1300;
+  }
+
+  .Barra-Navegacion.mobile-collapsed {
+    transform: translateX(-100%);
+  }
+
+  .Barra-Navegacion.mobile-collapsed .Inventario-btn,
+  .Barra-Navegacion.mobile-collapsed .Avisos-btn,
+  .Barra-Navegacion.mobile-collapsed .Recibos-btn,
+  .Barra-Navegacion.mobile-collapsed .user-info {
+    display: none !important;
+  }
+
+  .Barra-Navegacion button {
+    height: 56px;
+    width: calc(100% - 24px);
+    max-width: 236px;
+    padding: 10px 12px;
+    font-size: 1rem;
+    gap: 12px;
+  }
+
+  .Logo-Ingreso {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+
+  .user-info {
+    position: absolute;
+    bottom: 20px;
+    width: calc(100% - 24px);
+    justify-content: space-between;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 10px 12px;
+  }
+
+  body.nav-open .page-container,
+  body.nav-open .Zona-Tarjetas,
+  body.nav-open .content-area {
+    margin-left: 260px !important;
+  }
 }
 

@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../Usuarios/Usuarios-style.css">
 </head>
 <body>
+    <button class="nav-toggle" aria-label="Ocultar navegación"><span class="hamburger"></span></button>
     <div class="Barra-Navegacion">
         <div class="Logo-Ingreso">
             <a href="../ingreso.html" class="Logo-Link">
@@ -41,12 +42,12 @@
     </div>
     <div class="Zona-Tarjetas">
         <div class="Zona-Superior">
+            <input type="text" class="Barra-Busqueda" placeholder="Buscar usuario...">
             <div class="Botones-Accion">
                 <button class="Accion-btn" id="btn-agregar">Agregar</button>
                 <button class="Accion-btn" id="btn-eliminar">Eliminar</button>
                 <button class="Accion-btn" id="btn-editar">Editar</button>
             </div>
-            <input type="text" class="Barra-Busqueda" placeholder="Buscar usuario...">
         </div>
     <div class="usuarios-table">
         <div class="usuarios-header">
@@ -114,5 +115,34 @@
 
     
     <script src="Usuarios.js"></script>
+        <script>
+        (function(){
+            const nav = document.querySelector('.Barra-Navegacion');
+            if (!nav) return;
+            let collapsed = localStorage.getItem('navCollapsed');
+            if (collapsed === null) collapsed = 'false'; // default: expanded
+
+            const btn = document.querySelector('.nav-toggle');
+            if (!btn) return;
+
+            function apply(){
+                if (collapsed === 'false'){
+                    nav.classList.remove('mobile-collapsed');
+                    document.body.classList.add('nav-open');
+                } else {
+                    nav.classList.add('mobile-collapsed');
+                    document.body.classList.remove('nav-open');
+                }
+            }
+
+            btn.addEventListener('click', function(){
+                collapsed = (collapsed === 'true') ? 'false' : 'true';
+                localStorage.setItem('navCollapsed', collapsed);
+                apply();
+            });
+
+            apply();
+        })();
+        </script>
 </body>
 </html>

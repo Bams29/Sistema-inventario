@@ -116,11 +116,6 @@ function RecibosList() {
   return (
     <div className="Zona-Tarjetas">
       <div className="Zona-Superior">
-        <div className="Botones-Accion">
-          <button className="Accion-btn" onClick={openAddModal}>Agregar</button>
-          <button className="Accion-btn" onClick={deleteSelected}>Eliminar</button>
-          <button className="Accion-btn" onClick={openEditModal}>Editar</button>
-        </div>
         <input
           type="text"
           className="Barra-Busqueda"
@@ -128,6 +123,11 @@ function RecibosList() {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
+        <div className="Botones-Accion">
+          <button className="Accion-btn" onClick={openAddModal}>Agregar</button>
+          <button className="Accion-btn" onClick={deleteSelected}>Eliminar</button>
+          <button className="Accion-btn" onClick={openEditModal}>Editar</button>
+        </div>
       </div>
 
       <div className="Tarjetas-Grid">

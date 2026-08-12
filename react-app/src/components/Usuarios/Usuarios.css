@@ -13,20 +13,22 @@
 
 .Zona-Superior {
   display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 8px;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 12px;
+  margin-bottom: 12px;
   position: sticky;
   top: 0;
   background: #ebc322;
   z-index: 2;
-  padding-bottom: 0; /* evita huecos extra */
+  padding: 12px 0 10px;
 }
-
 
 .Botones-Accion {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
+  justify-content: flex-start;
 }
 
 .Barra-Busqueda {
@@ -93,6 +95,12 @@
 .usuarios-rows {
   display: flex;
   flex-direction: column;
+  max-height: min(58vh, 520px);
+  overflow-y: auto;
+}
+
+.usuarios-table {
+  overflow-x: auto;
 }
 
 .usuario-row {
@@ -264,6 +272,70 @@
   .Zona-Tarjetas {
     margin-left: 0;
     width: 100%;
+  }
+}
+
+/* Mobile L (425px) specific adjustments */
+@media (max-width: 425px) {
+  .Zona-Tarjetas {
+    padding: 8px;
+    gap: 6px;
+  }
+
+  .Zona-Superior {
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    padding-top: 8px;
+  }
+
+  .Barra-Busqueda {
+    padding: 8px 12px;
+    font-size: 0.95rem;
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .Botones-Accion {
+    display: flex;
+    gap: 8px;
+    flex: 0 0 auto;
+  }
+
+  .Accion-btn {
+    padding: 8px 12px;
+    font-size: 0.95rem;
+  }
+
+  .usuarios-table {
+    max-width: none;
+    margin: 0;
+    border-radius: 6px;
+  }
+
+  .usuarios-header {
+    grid-template-columns: 1fr 1fr; /* collapse columns for readability */
+  }
+
+  .usuario-row {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .usuario-row > div,
+  .usuarios-header > div {
+    padding: 10px 8px;
+    font-size: 0.95rem;
+  }
+
+  .Uss-pfp {
+    width: 48px;
+    height: 48px;
+  }
+
+  .card-agregar {
+    max-width: 360px;
+    width: calc(100% - 24px);
+    padding: 14px;
   }
 }
 

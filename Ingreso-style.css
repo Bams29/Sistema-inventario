@@ -194,4 +194,147 @@ body {
     rotate: -15deg;
 }
 
+/* Mobile L (425px) adjustments for Ingreso page */
+@media (max-width: 425px) {
+    body {
+        justify-content: center;
+        align-items: flex-start;
+        overflow-x: hidden;
+        height: auto;
+    }
+
+    .container-ingreso {
+        flex-direction: column;
+        width: 100%;
+        min-height: 100vh;
+    }
+
+    .zona-logo {
+        width: 100%;
+        height: auto;
+        padding: 18px 12px;
+        box-sizing: border-box;
+        order: 2;
+    }
+
+    .F-ingreso {
+        width: 100%;
+        height: auto;
+        padding: 20px 0;
+        order: 1;
+        justify-content: center;
+    }
+
+    .card-ingreso {
+        min-width: auto;
+        max-width: 340px;
+        width: 90%;
+        height: auto;
+        padding: 24px;
+        margin: 8px auto 20px auto;
+    }
+
+    .card-img img {
+        width: 100px;
+        height: 100px;
+        margin-bottom: 16px;
+    }
+
+    .form-ingreso {
+        position: static;
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        align-items: center;
+        justify-content: flex-start;
+        padding-top: 0;
+    }
+
+    .nombre-int,
+    .contraseña-int {
+        position: static;
+        top: auto;
+        left: auto;
+        transform: none;
+        width: 90%;
+    }
+
+    .btn-ingreso {
+        position: static;
+        top: auto;
+        left: auto;
+        transform: none;
+        width: 90%;
+        margin-top: 0;
+        padding: 14px 0;
+    }
+
+    .logo img {
+        width: 180px;
+        height: 180px;
+    }
+
+    .nombre {
+        position: static;
+        bottom: auto;
+        left: auto;
+        transform: none;
+        font-size: 1.25rem;
+        color: #ffffff;
+        margin-top: 8px;
+        padding: 8px 12px;
+    }
+
+    .decor {
+        display: none;
+    }
+    
+    /* place logo and text side-by-side */
+    .zona-logo {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        padding: 18px 16px;
+    }
+
+    .logo {
+        margin: 0;
+    }
+
+    .logo img {
+        width: 120px;
+        height: 120px;
+    }
+
+    .nombre {
+        position: static;
+        transform: none;
+        font-size: 1rem;
+        text-align: left;
+        color: #ffffff;
+        margin: 0;
+        padding: 0;
+        line-height: 1.1;
+    }
+    
+    /* reduce brown band dominance and push it down */
+    /* make brown zone fill remaining space */
+    .F-ingreso {
+        flex: 0 0 auto; /* keep form area its natural size */
+    }
+
+    .zona-logo {
+        flex: 1 1 auto; /* expand to fill remaining height */
+        min-height: 140px;
+        margin-top: 8px;
+        background-color: #775c00;
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
+
 

@@ -206,3 +206,4 @@ if (searchInput) {
 document.addEventListener('DOMContentLoaded', () => {
     loadUsers();
 });
+// (mobile nav handled inline in the HTML for this legacy page)

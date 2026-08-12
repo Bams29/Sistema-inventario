@@ -65,6 +65,10 @@ a {
     grid-template-columns: repeat(4, 1fr);
     gap: 24px;
     width: 100%;
+    align-items: start;
+    grid-auto-rows: minmax(130px, auto);
+    max-height: min(62vh, 560px);
+    overflow-y: auto;
 }
 
 .Tarjeta-Insumo {
@@ -76,43 +80,39 @@ a {
     font-size: 1rem;
     min-width: 0;
     width: 100%;
-    min-height: 110px;
+    min-height: 130px;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     box-sizing: border-box;
     max-width: none;
     overflow: hidden;
-}
-
-.Tarjeta-Insumo {
     cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.Tarjeta-Insumo.selected {
-    outline: 3px solid #9d7800;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+.Tarjeta-Insumo:hover {
+    transform: translateY(-3px);
 }
 
 .Tarjeta-Contenido {
     display: flex;
     align-items: center;
-    gap: 32px;
+    gap: 16px;
     width: 100%;
+    box-sizing: border-box;
+}
+
+.Tarjeta-Imagen {
+    width: 96px;
+    height: 96px;
+    flex-shrink: 0;
+    object-fit: contain;
+    border-radius: 12px;
 }
 
 .Tarjeta-Datos {
     flex: 1;
-    flex-shrink: 1;
     min-width: 0;
-}
-
-.Tarjeta-Imagen {
-    width: 80px;
-    height: 80px;
-    object-fit: cover;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    background: #f5f5f5;
 }
 
 .Tarjeta-Datos h3 {
@@ -133,18 +133,20 @@ a {
 
 .Zona-Superior {
     display: flex;
-    align-items: center;
-    gap: 16px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
     margin-bottom: 24px;
     position: sticky;
     top: 0;
     background: #ebc322;
     z-index: 2;
-    padding-bottom: 12px;
+    padding: 12px 0;
 }
 
 .Botones-Accion {
     display: flex;
+    flex-wrap: wrap;
     gap: 8px;
 }
 
@@ -173,9 +175,9 @@ a {
 }
 
 .Nav-Icon {
-    width: 62px;
-    height: 62px;
-    margin-left: 30px; 
+    width: 42px;
+    height: 42px;
+    margin-left: 18px; 
     flex-shrink: 0; 
 }
 
@@ -248,6 +250,181 @@ a {
 
     }
 
+}
+
+@media (max-width: 768px) {
+    .nav-toggle {
+        display: block;
+        position: fixed;
+        right: 12px;
+        top: 10px;
+        background: rgba(0, 0, 0, 0.45);
+        border: 1px solid rgba(255, 255, 255, 0.45);
+        border-radius: 10px;
+        padding: 10px;
+        z-index: 1400;
+        cursor: pointer;
+    }
+
+    .nav-toggle .hamburger {
+        display: block;
+        width: 22px;
+        height: 2px;
+        background: #fff;
+        position: relative;
+    }
+
+    .nav-toggle .hamburger::before,
+    .nav-toggle .hamburger::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        width: 22px;
+        height: 2px;
+        background: #fff;
+    }
+
+    .nav-toggle .hamburger::before { top: -7px; }
+    .nav-toggle .hamburger::after { top: 7px; }
+
+    .Barra-Navegacion {
+        width: 260px;
+        transform: translateX(0);
+        transition: transform 0.22s ease;
+        z-index: 1300;
+    }
+
+    .Barra-Navegacion.mobile-collapsed {
+        transform: translateX(-100%);
+    }
+
+    .Tarjetas-Grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .Tarjeta-Contenido {
+        flex-direction: column;
+        gap: 12px;
+        align-items: stretch;
+    }
+
+    .Zona-Tarjetas {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .Tarjeta-Insumo {
+        min-height: auto;
+        height: auto;
+    }
+}
+
+/* Mobile L (425px) adjustments */
+@media (max-width: 425px) {
+    .nav-toggle {
+        display: block;
+        position: fixed;
+        right: 12px;
+        top: 10px;
+        background: rgba(0, 0, 0, 0.45);
+        border: 1px solid rgba(255, 255, 255, 0.45);
+        border-radius: 10px;
+        padding: 10px;
+        z-index: 1400;
+        cursor: pointer;
+    }
+
+    .nav-toggle .hamburger {
+        display: block;
+        width: 22px;
+        height: 2px;
+        background: #fff;
+        position: relative;
+    }
+
+    .nav-toggle .hamburger::before,
+    .nav-toggle .hamburger::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        width: 22px;
+        height: 2px;
+        background: #fff;
+    }
+
+    .nav-toggle .hamburger::before { top: -7px }
+    .nav-toggle .hamburger::after { top: 7px }
+
+    .Barra-Navegacion {
+        position: fixed;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 260px;
+        height: 100vh;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px 12px;
+        gap: 14px;
+        background: #775c00;
+        transform: translateX(0);
+        transition: transform 0.22s ease;
+        z-index: 1300;
+    }
+
+    .Barra-Navegacion.mobile-collapsed {
+        transform: translateX(-100%);
+    }
+
+    .Barra-Navegacion button {
+        height: 56px;
+        width: calc(100% - 24px);
+        max-width: 236px;
+        padding: 10px 12px;
+        font-size: 1rem;
+        gap: 12px;
+    }
+
+    .Logo-Ingreso {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 10px;
+    }
+
+    .Zona-Tarjetas {
+        margin-left: 0;
+        padding: 12px;
+        width: 100%;
+        height: auto;
+    }
+
+    .Tarjetas-Grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        grid-auto-rows: auto;
+        max-height: none;
+        overflow-y: visible;
+    }
+
+    .Tarjeta-Insumo,
+    .Tarjeta-Recibo,
+    .Tarjeta-Aviso {
+        min-height: auto;
+        height: auto;
+    }
+
+    .Tarjeta-Contenido {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .Tarjeta-Imagen {
+        width: 48px;
+        height: 48px;
+    }
 }
 
 .card-agregar {

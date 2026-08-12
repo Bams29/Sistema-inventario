@@ -115,3 +115,4 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.querySelector('.Barra-Busqueda');
     if (searchInput) searchInput.addEventListener('input', handleSearch);
 });
+// (mobile nav handled inline in the HTML for this legacy page)

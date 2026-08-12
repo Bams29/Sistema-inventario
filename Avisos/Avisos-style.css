@@ -40,7 +40,8 @@ a {
     font-size: 1.2rem;
     cursor: pointer;
     transition: background 0.2s, border-color 0.2s;
-    gap: 90px; /* Espacio entre imagen y texto */
+    gap: 90px;
+    padding: 0 20px;
 }
 
 .Barra-Navegacion button:hover {
@@ -65,6 +66,10 @@ a {
     grid-template-columns: repeat(4, 1fr);
     gap: 24px;
     width: 100%;
+    align-items: start;
+    grid-auto-rows: minmax(130px, auto);
+    max-height: min(62vh, 560px);
+    overflow-y: auto;
 }
 
 .Tarjeta-Aviso {
@@ -76,49 +81,51 @@ a {
     font-size: 1rem;
     min-width: 0;
     width: 100%;
-    min-height: 110px;
+    min-height: 130px;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     box-sizing: border-box;
     max-width: none;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.Tarjeta-Aviso:hover {
+    transform: translateY(-3px);
 }
 
 .Tarjeta-Contenido {
     display: flex;
     align-items: center;
-    gap: 32px;
+    gap: 16px;
     width: 100%;
+    box-sizing: border-box;
 }
 
 .Tarjeta-Imagen {
-    width: 80px;
-    height: 80px;
-    object-fit: cover;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    background: #f5f5f5;
+    width: 96px;
+    height: 96px;
+    flex-shrink: 0;
+    object-fit: contain;
+    border-radius: 12px;
 }
 
-.Tarjeta-Datos h3 {
-    margin: 0 0 8px 0;
-    font-size: 1.2rem;
-}
-
-.Tarjeta-Datos p {
-    margin: 4px 0;
-    font-size: 1rem;
+.Tarjeta-Datos {
+    flex: 1;
+    min-width: 0;
 }
 
 .Zona-Superior {
     display: flex;
-    align-items: center;
-    gap: 16px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
     margin-bottom: 24px;
     position: sticky;
     top: 0;
     background: #ebc322;
     z-index: 2;
-    padding-bottom: 12px;
+    padding: 12px 0;
 }
 
 .Botones-Accion {
@@ -226,4 +233,211 @@ a {
         
     }
     
+}
+
+/* Mobile L (425px) adjustments */
+@media (max-width: 425px) {
+    .nav-toggle {
+        display: block;
+        position: fixed;
+        right: 12px;
+        top: 10px;
+        background: rgba(0, 0, 0, 0.45);
+        border: 1px solid rgba(255, 255, 255, 0.45);
+        border-radius: 10px;
+        padding: 10px;
+        z-index: 1400;
+        cursor: pointer;
+    }
+
+    .nav-toggle .hamburger {
+        display: block;
+        width: 22px;
+        height: 2px;
+        background: #fff;
+        position: relative;
+    }
+
+    .nav-toggle .hamburger::before,
+    .nav-toggle .hamburger::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        width: 22px;
+        height: 2px;
+        background: #fff;
+    }
+
+    .nav-toggle .hamburger::before { top: -7px }
+    .nav-toggle .hamburger::after { top: 7px }
+
+    .Barra-Navegacion {
+        position: fixed;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 260px;
+        height: 100vh;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px 12px;
+        gap: 14px;
+        background: #775c00;
+        transform: translateX(0);
+        transition: transform 0.22s ease;
+        z-index: 1300;
+    }
+
+    .Barra-Navegacion.mobile-collapsed {
+        transform: translateX(-100%);
+    }
+
+    .Barra-Navegacion button {
+        height: 56px;
+        width: calc(100% - 24px);
+        max-width: 236px;
+        padding: 10px 12px;
+        font-size: 1rem;
+        gap: 12px;
+    }
+
+    .Logo-Ingreso {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 10px;
+    }
+
+    .Zona-Tarjetas {
+        margin-left: 0;
+        padding: 12px;
+        width: 100%;
+        height: auto;
+    }
+
+    .Tarjetas-Grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        grid-auto-rows: auto;
+        max-height: none;
+        overflow-y: visible;
+    }
+
+    .Tarjeta-Aviso {
+        min-height: auto;
+        height: auto;
+    }
+
+    .Tarjeta-Contenido {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .Tarjeta-Imagen {
+        width: 48px;
+        height: 48px;
+    }
+
+    .Tarjeta-Datos h3 {
+        font-size: 1rem;
+    }
+
+    .Zona-Superior {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+        padding-top: 8px;
+    }
+
+    .Barra-Busqueda {
+        padding: 8px 12px;
+        font-size: 0.95rem;
+    }
+
+    .Accion-btn {
+        padding: 8px 12px;
+        font-size: 0.95rem;
+    }
+
+    .card-agregar {
+        max-width: 360px;
+        width: calc(100% - 24px);
+        padding: 14px;
+    }
+}
+
+/* Tablet / small screens */
+@media (max-width: 768px) {
+    .nav-toggle {
+        display: block;
+        position: fixed;
+        right: 12px;
+        top: 10px;
+        background: rgba(0, 0, 0, 0.45);
+        border: 1px solid rgba(255, 255, 255, 0.45);
+        border-radius: 10px;
+        padding: 10px;
+        z-index: 1400;
+        cursor: pointer;
+    }
+
+    .nav-toggle .hamburger {
+        display: block;
+        width: 22px;
+        height: 2px;
+        background: #fff;
+        position: relative;
+    }
+
+    .nav-toggle .hamburger::before,
+    .nav-toggle .hamburger::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        width: 22px;
+        height: 2px;
+        background: #fff;
+    }
+
+    .nav-toggle .hamburger::before { top: -7px; }
+    .nav-toggle .hamburger::after { top: 7px; }
+
+    .Barra-Navegacion {
+        width: 260px;
+        transform: translateX(0);
+        transition: transform 0.22s ease;
+        z-index: 1300;
+    }
+
+    .Barra-Navegacion.mobile-collapsed {
+        transform: translateX(-100%);
+    }
+
+    .Tarjetas-Grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .Tarjeta-Contenido {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        align-items: stretch;
+    }
+
+    .Tarjeta-Aviso {
+        min-height: auto;
+        height: auto;
+    }
+
+    .Tarjeta-Imagen {
+        width: 48px;
+        height: 48px;
+    }
+
+    .Zona-Tarjetas {
+        margin-left: 0;
+        width: 100%;
+    }
 }
