@@ -1,0 +1,9 @@
+node_modules
+react-app/node_modules
+react-app/dist
+.git
+.gitignore
+.env
+npm-debug.log
+Dockerfile
+.dockerignore

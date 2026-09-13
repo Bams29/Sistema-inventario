@@ -30,6 +30,10 @@ dotenv.config();
     app.use(cors()); // Habilitar CORS
     app.use(express.json()); // parse JSON bodies
 
+    app.get('/health', (req, res) => {
+      res.status(200).json({ status: 'ok' });
+    });
+
     const reactDist = path.join(process.cwd(), 'react-app', 'dist');
     if (fs.existsSync(reactDist)) {
       app.use(express.static(reactDist));
